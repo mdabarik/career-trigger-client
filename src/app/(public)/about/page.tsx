@@ -1,9 +1,12 @@
+import { Button } from "@/components/ui/button";
 import React from "react";
+
+import Navbar from "../../../components/shared/Navbar/navbar";
 
 const AboutPage = () => {
   return (
     <div>
-      <div>About Us</div>
+      <p>About Page</p>
     </div>
   );
 };
