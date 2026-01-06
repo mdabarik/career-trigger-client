@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import LogoIcon from "@/components/shared/Logo/Logo";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -12,29 +13,36 @@ export default function Navbar() {
     <nav className="px-8 py-2 bg-background border-b border-red-100 shadow-[0_4px_10px_rgba(220,38,38,0.2)]">
       <div className="max-w-[1280px] mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-red-600">
+        <Link href="/" className="text-xl font-bold text-red-600 flex">
+          <span className="mr-2">
+            {" "}
+            <LogoIcon size={27} />{" "}
+          </span>
           CareerTrigger
         </Link>
 
         {/* Desktop menu */}
         <div className="hidden md:flex gap-4 items-center">
-          <Link href="/about" className="hover:text-red-600">
-            About
+          <Link href="/posts" className="hover:text-red-600">
+            All Posts
           </Link>
-          <Link href="/services" className="hover:text-red-600">
-            Services
+          <Link href="/quizes" className="hover:text-red-600">
+            Quizes
           </Link>
           <Link href="/contact" className="hover:text-red-600">
             Contact
           </Link>
+          <Link href="/about" className="hover:text-red-600">
+            About
+          </Link>
           <Button className="bg-red-600 hover:bg-red-700 text-white">
-            Sign In
+            <Link href="signin">Sign In</Link>
           </Button>
           <Button
             variant="outline"
             className="border-red-600 text-red-600 hover:bg-red-50"
           >
-            Sign Up
+            <Link href="signup">Sign Up</Link>
           </Button>
         </div>
 

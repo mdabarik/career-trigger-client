@@ -1,4 +1,5 @@
-// components/ProductCard.tsx
+// components/shared/Card/card.tsx
+"use client";
 import Image from "next/image";
 import {
   Card,
@@ -9,40 +10,45 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export default function ProductCard() {
+export default function PostCard({ post }) {
+  console.log("from PostCard.tsx", post);
+
   return (
     <Card className="bg-white text-black overflow-hidden rounded-[20px] shadow-md shadow-red-200">
-      {/* Product Image */}
+      {/* Post Image */}
       <div className="relative w-full h-[200px]">
         <Image
-          src="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-          alt="Nike Jordan Air Rev"
-          fill
+          src={post.photoUrl || "https://via.placeholder.com/400"}
+          alt={post?.title}
+          width={600}
+          height={250}
           className="object-cover"
+          loading="eager"
         />
-        <div className="absolute inset-0 bg-[#00000090] to-transparent" />
+        <div className="absolute inset-0 bg-[#00000040] to-transparent" />
       </div>
 
-      {/* Body section with rounded top overlapping image */}
+      {/* Body */}
       <div className="relative -mt-6 bg-white rounded-t-[20px] p-4">
         <CardHeader className="px-3 py-2">
           <CardTitle className="text-lg font-bold text-gray-900">
-            Nike Jordan Air Rev
+            {post.title}
           </CardTitle>
 
           {/* Tags */}
           <div className="flex gap-2 mt-2">
-            <span className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full">
-              EU38
-            </span>
-            <span className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full">
-              Black & White
-            </span>
+            {post.tags?.map((tag, i) => (
+              <span
+                key={i}
+                className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
 
           <CardDescription className="text-xs text-gray-600 mt-2">
-            Crossing hardwood comfort with off-court flair. '80s-Inspired
-            construction, bold details and nothin'-but-net style.
+            {post.details}
           </CardDescription>
         </CardHeader>
 

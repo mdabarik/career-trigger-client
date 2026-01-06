@@ -1,7 +1,12 @@
 import React from "react";
 
-const Posts = () => {
-  return <div>Posts</div>;
+const PostPageDashboard = async () => {
+  const res = await fetch("http://localhost:3001/api/posts", {
+    cache: "no-store",
+  });
+  const data = await res.json();
+
+  return <div>PostPageDashboard</div>;
 };
 
-export default Posts;
+export default PostPageDashboard;

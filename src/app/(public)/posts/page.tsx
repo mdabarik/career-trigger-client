@@ -1,9 +1,17 @@
 import { Button } from "@/components/ui/button";
-import Sidebar from "@/components/modules/Home/Sidebar";
-import LatestPost from "@/components/frontend/shared/LatestPost/LatestPost";
-import Link from "next/link";
+import PostCard from "@/components/shared/PostCard/PostCard";
 
-const HomePage = () => {
+const AllPosts = async () => {
+  const res = await fetch("http://localhost:3001/api/posts", {
+    cache: "no-store",
+  });
+
+  const resJson = await res.json();
+
+  const posts = resJson.data.posts;
+
+  console.log("posts", posts);
+
   return (
     <div>
       <div className="flex flex-row justify-between items-start max-w-[1280px] mx-auto">
@@ -13,9 +21,11 @@ const HomePage = () => {
             <h2 className="font-bold text-xl">Latest Posts</h2>
           </div>
 
-          {/* Top 6 Latest Posts */}
+          {/* Render posts dynamically */}
           <div className="grid grid-cols-2 gap-6 w-full">
-            <LatestPost limit={6} />
+            {posts?.map((post) => (
+              <PostCard key={post._id} post={post} />
+            ))}
           </div>
 
           <div className="flex justify-center m-8">
@@ -23,19 +33,19 @@ const HomePage = () => {
               variant="outline"
               className="border-red-600 text-red-600 hover:bg-red-50"
             >
-              <Link href="/posts">View All Posts</Link>
+              View All Posts
             </Button>
           </div>
         </div>
 
         {/* Right: Sidebar (unchanged) */}
-        <div className="flex flex-col w-[30%] h-full ml-4 mt-[75px] gap-6">
+        <div className="flex flex-col w-[30%] h-full ml-2 mt-[75px] gap-6">
           {/* Search + Categories */}
-          <Sidebar />
+          {/* ... keep your sidebar code */}
         </div>
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default AllPosts;
