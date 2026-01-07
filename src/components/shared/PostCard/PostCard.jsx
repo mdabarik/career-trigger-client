@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function PostCard({ post }) {
-  console.log("from PostCard.tsx", post);
+  // console.log("from PostCard.tsx", post);
 
   return (
     <Card className="bg-white text-black overflow-hidden rounded-[20px] shadow-md shadow-red-200">
@@ -53,7 +53,7 @@ export default function PostCard({ post }) {
         </CardHeader>
 
         <CardFooter className="px-3 py-2">
-          <Button className="w-full bg-red-600 text-white hover:bg-red-700 shadow-md shadow-red-300">
+          <Button className="w-full bg-red-600 rounded-[50px] text-white hover:bg-red-700 hover:shadow-lg hover:shadow-red-300 shadow-md shadow-red-300">
             View This Post
           </Button>
         </CardFooter>

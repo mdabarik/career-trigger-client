@@ -2,7 +2,7 @@ import PostCard from "@/components/shared/PostCard/PostCard";
 
 const LatestPost = async ({ limit }) => {
   const res = await fetch(
-    `http://localhost:3001/api/posts?sortById=desc&status=published&itemPerPage=${limit}`,
+    `http://localhost:3001/api/posts?sortById=desc&status=published&limit=${limit}&page=1`,
     {
       cache: "no-store",
     }

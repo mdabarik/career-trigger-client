@@ -5,8 +5,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import LogoIcon from "@/components/shared/Logo/Logo";
+import { useParams, usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  console.log("pathname", pathname);
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,16 +26,42 @@ export default function Navbar() {
 
         {/* Desktop menu */}
         <div className="hidden md:flex gap-4 items-center">
-          <Link href="/posts" className="hover:text-red-600">
+          <Link
+            href="/"
+            className={pathname === "/" ? "text-red-500" : "hover:text-red-600"}
+          >
+            Home
+          </Link>
+          <Link
+            href="/posts?page=1&limit=10"
+            className={
+              pathname === "/posts" ? "text-red-500" : "hover:text-red-600"
+            }
+          >
             All Posts
           </Link>
-          <Link href="/quizes" className="hover:text-red-600">
+          <Link
+            href="/quizes"
+            className={
+              pathname === "/quizes" ? "text-red-500" : "hover:text-red-600"
+            }
+          >
             Quizes
           </Link>
-          <Link href="/contact" className="hover:text-red-600">
+          <Link
+            href="/contact"
+            className={
+              pathname === "/contacts" ? "text-red-500" : "hover:text-red-600"
+            }
+          >
             Contact
           </Link>
-          <Link href="/about" className="hover:text-red-600">
+          <Link
+            href="/about"
+            className={
+              pathname === "/about" ? "text-red-500" : "hover:text-red-600"
+            }
+          >
             About
           </Link>
           <Button className="bg-red-600 hover:bg-red-700 text-white">

@@ -21,9 +21,9 @@ const HomePage = () => {
           <div className="flex justify-center m-8">
             <Button
               variant="outline"
-              className="border-red-600 text-red-600 hover:bg-red-50"
+              className="border-red-600 px-10 py-5 text-md text-red-600 hover:bg-red-50"
             >
-              <Link href="/posts">View All Posts</Link>
+              <Link href="/posts?page=1&limit=10">View All Posts</Link>
             </Button>
           </div>
         </div>

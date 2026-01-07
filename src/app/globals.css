@@ -66,25 +66,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* for tiptap editor */
-.ProseMirror {
-  min-height: 150px;
-  outline: none;
-  padding: 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.ProseMirror p {
-  margin: 0.5rem 0;
-}
-
-.editor-input {
-  min-height: 200px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
-.editor-placeholder {
-  color: #999;
-}
