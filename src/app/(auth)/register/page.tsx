@@ -1,9 +1,10 @@
+import SignUpForm from "@/components/modules/Auth/Register";
 import React from "react";
 
 const SignUpPage = () => {
   return (
     <div>
-      <p>Sign up</p>
+      <SignUpForm />
     </div>
   );
 };

@@ -7,6 +7,8 @@ const AboutPage = async () => {
   const res = await fetch("http://localhost:3001/api/posts", {
     cache: "no-store",
   });
+
+  console.log(process.env.AUTH_SECRET);
   const data = await res.json();
   return (
     <div>

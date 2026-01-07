@@ -65,13 +65,13 @@ export default function Navbar() {
             About
           </Link>
           <Button className="bg-red-600 hover:bg-red-700 text-white">
-            <Link href="signin">Sign In</Link>
+            <Link href="login">Login</Link>
           </Button>
           <Button
             variant="outline"
             className="border-red-600 text-red-600 hover:bg-red-50"
           >
-            <Link href="signup">Sign Up</Link>
+            <Link href="register">Register</Link>
           </Button>
         </div>
 
@@ -93,13 +93,13 @@ export default function Navbar() {
               Contact
             </Link>
             <Button className="bg-red-600 hover:bg-red-700 text-white">
-              Sign In
+              Login
             </Button>
             <Button
               variant="outline"
               className="border-red-600 text-red-600 hover:bg-red-50"
             >
-              Sign Up
+              Register
             </Button>
           </div>
         )}

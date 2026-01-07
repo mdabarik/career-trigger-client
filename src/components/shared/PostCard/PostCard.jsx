@@ -9,6 +9,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function PostCard({ post }) {
   // console.log("from PostCard.tsx", post);
@@ -54,7 +55,7 @@ export default function PostCard({ post }) {
 
         <CardFooter className="px-3 py-2">
           <Button className="w-full bg-red-600 rounded-[50px] text-white hover:bg-red-700 hover:shadow-lg hover:shadow-red-300 shadow-md shadow-red-300">
-            View This Post
+            <Link href={`/posts/${post?._id}`}>View This Post</Link>
           </Button>
         </CardFooter>
       </div>
