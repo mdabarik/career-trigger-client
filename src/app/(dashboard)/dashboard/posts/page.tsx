@@ -1,14 +1,16 @@
+"use client";
+
 import { authOptions } from "@/helper/authOptions";
 import { getServerSession } from "next-auth";
-import React from "react";
+import { useSession } from "next-auth/react";
 
-const PostPageDashboard = async () => {
+const PostPageDashboard = () => {
   // const res = await fetch("http://localhost:3001/api/posts", {
   //   cache: "no-store",
   // });
   // const data = await res.json();
 
-  const session = await getServerSession(authOptions);
+  const session = useSession();
 
   console.log("from page.tsx dashbaord,", session);
 

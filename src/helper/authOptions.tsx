@@ -3,7 +3,9 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
+const MAX_EXPIRE_DATE = 60 * 60 * 24 * 30;
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -43,6 +45,7 @@ export const authOptions: NextAuthOptions = {
 
   session: {
     strategy: "jwt",
+    maxAge: MAX_EXPIRE_DATE,
   },
 
   callbacks: {
@@ -61,7 +64,7 @@ export const authOptions: NextAuthOptions = {
       // console.log("existing user", existingUser);
 
       if (!existingUser) {
-        console.log("user,", user);
+        // console.log("user,", user);
         const createRes = await fetch("http://localhost:3001/api/users/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -73,7 +76,7 @@ export const authOptions: NextAuthOptions = {
             role: "user",
           }),
         });
-        console.log("createRes", createRes);
+        // console.log("createRes", createRes);
       }
 
       return true;
@@ -82,14 +85,28 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as any).role;
+        token.email = user.email;
+        token.role = user.role;
+        token.accessToken = user.access_token;
       }
+
       return token;
     },
 
-    async session({ session, token }) {
-      (session.user as any).id = token.id;
-      (session.user as any).role = token.role;
+    // async session({ session, token }) {
+    //   const payload = { id: token.id, email: token.email, role: token.role };
+    //   const signedJwt = jwt.sign(payload, process.env.NEXTAUTH_SECRET!, {
+    //     expiresIn: MAX_EXPIRE_DATE,
+    //   });
+    //   (session as any).jwt = signedJwt;
+    //   return session;
+    // },
+
+    async session({ session, token, user }) {
+      session.accessToken = "acess token";
+      session.jwt = "amr.jwt";
+      session.user.id = token.id;
+
       return session;
     },
   },
