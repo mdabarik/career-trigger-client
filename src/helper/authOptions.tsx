@@ -19,18 +19,26 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        console.log("credentials,", credentials);
         const res = await fetch(
           `http://localhost:3001/api/users/user?email=${credentials?.email}`
         );
-        if (!res.ok) return null;
 
-        const user = await res.json();
+        const resJson = await res.json();
+        const user = resJson.data;
+
+        // console.log(user);
+
+        // return null;
         if (!user) return null;
 
         const isValid = await bcrypt.compare(
           credentials!.password,
-          user.passwordHash
+          user.password
         );
+
+        // console.log("isvalid", isValid);
+
         if (!isValid) return null;
 
         return {

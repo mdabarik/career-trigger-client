@@ -37,8 +37,28 @@ export default function SignInForm() {
     },
   });
 
+  // const onSubmit = async (values: SignInFormValues) => {
+  //   signIn("credentials", {
+  //     email: values.email,
+  //     password: values.password,
+  //     callbackUrl: "/dashboard",
+  //   });
+  //   // console.log("Form Values:", values);
+  // };
+
   const onSubmit = async (values: SignInFormValues) => {
-    console.log("Form Values:", values);
+    console.log(values);
+    const result = await signIn("credentials", {
+      ...values,
+      redirect: true,
+      callbackUrl: callbackUrl,
+    });
+    if (result?.error) {
+      console.error("Login failed:", result.error);
+    } else {
+      // const router = useRouter();
+      // router.push(result.url!);
+    }
   };
 
   const handleGoogleSignIn = () => {
