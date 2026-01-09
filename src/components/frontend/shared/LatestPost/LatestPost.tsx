@@ -11,7 +11,7 @@ const LatestPost = async ({ limit }) => {
   const jsonDATA = await res.json();
   const posts = jsonDATA.data.posts;
 
-  console.log("LatestPosts.tsx", posts[0]);
+  // console.log("LatestPosts.tsx", posts[0]);
 
   return (
     <>

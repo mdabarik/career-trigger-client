@@ -51,7 +51,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             className={
-              pathname === "/contacts" ? "text-red-500" : "hover:text-red-600"
+              pathname === "/contact" ? "text-red-500" : "hover:text-red-600"
             }
           >
             Contact

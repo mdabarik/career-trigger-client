@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/form";
 import Image from "next/image";
 
-// ✅ Validation schema
 const SignUpSchema = z
   .object({
     name: z.string().min(1, "Name is required"),
@@ -32,7 +31,7 @@ const SignUpSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmPassword"], // error will show under confirmPassword
+    path: ["confirmPassword"],
   });
 
 type SignUpFormValues = z.infer<typeof SignUpSchema>;
@@ -49,7 +48,7 @@ export default function SignUpForm() {
   });
 
   const onSubmit = async (values: SignUpFormValues) => {
-    console.log("Sign Up Values:", values); // 👈 Logs object to console
+    console.log("Sign Up Values:", values);
     signIn("google", {
       callbackUrl: "/dashboard",
     });

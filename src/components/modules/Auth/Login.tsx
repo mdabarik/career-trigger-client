@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 const SignInSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -25,6 +26,9 @@ const SignInSchema = z.object({
 type SignInFormValues = z.infer<typeof SignInSchema>;
 
 export default function SignInForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -35,6 +39,11 @@ export default function SignInForm() {
 
   const onSubmit = async (values: SignInFormValues) => {
     console.log("Form Values:", values);
+  };
+
+  const handleGoogleSignIn = () => {
+    // signIn("google", { callbackUrl: "/" });
+    signIn("google", { callbackUrl });
   };
 
   return (
@@ -106,7 +115,7 @@ export default function SignInForm() {
           <Button
             variant="outline"
             className="flex items-center justify-center gap-2 border-red-400 text-red-600 hover:bg-red-50"
-            onClick={() => console.log("Login with Google")}
+            onClick={() => handleGoogleSignIn()}
           >
             <Image
               src="https://img.icons8.com/color/24/google-logo.png"
