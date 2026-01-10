@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import { Spinner } from "@/components/ui/spinner";
 import { signOut } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -35,11 +36,11 @@ export default function Navbar() {
 
   const handleLogout = () => {
     console.log("handle signout");
-    signOut({ callbackUrl: "/login" });
+    signOut({ callbackUrl: callbackUrl });
   };
 
   return (
-    <nav className="px-8 py-2 bg-background border-b border-red-100 shadow-[0_4px_10px_rgba(220,38,38,0.2)]">
+    <nav className="px-8 py-3 bg-background border-b border-red-100 shadow-[0_4px_10px_rgba(220,38,38,0.2)] min-h-[60px] w-[100%]">
       <div className="max-w-[1280px] mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-red-600 flex">
@@ -96,11 +97,14 @@ export default function Navbar() {
           ) : status === "authenticated" ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-[50px] h-[50px] rounded-[100px] border-2 border-red-500"
-                >
-                  M
+                <Button className="w-[45px] h-[45px] rounded-[100px] border-2 border-red-500 relative">
+                  {" "}
+                  <Image
+                    src={data?.user?.image}
+                    alt="profile photo"
+                    fill
+                    className="object-cover rounded-[100px]"
+                  />{" "}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -119,7 +123,7 @@ export default function Navbar() {
                   <Link href={"/dashboard/profile"}>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="w-[100%] flex justify-center">
-                  <Link href={"/dashborad"}>Dashboard</Link>
+                  <Link href={"/dashboard"}>Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="w-[100%] flex justify-center">
                   <Button
@@ -140,7 +144,7 @@ export default function Navbar() {
               </Button>
               <Button
                 variant="outline"
-                className="border-red-600 text-red-600 hover:bg-red-50"
+                className="border-red-600   text-red-600 hover:bg-red-50"
               >
                 <Link href="register">Register</Link>
               </Button>
