@@ -1,0 +1,94 @@
+careertrigger-nextjs/
+│
+├─ public/                      # Static assets
+│   ├─ images/
+│   ├─ icons/
+│   └─ favicon.ico
+│
+├─ src/
+│   ├─ app/                     # Next.js App Router
+│   │   ├─ layout.tsx           # Global public layout (Navbar + Footer)
+│   │   ├─ page.tsx             # Home page
+│   │   ├─ loading.tsx          # Global loading
+│   │   ├─ error.tsx            # Global error boundary
+│   │   │
+│   │   ├─ posts/               # Posts
+│   │   │   ├─ page.tsx         # All posts
+│   │   │   └─ [slug]/page.tsx  # Post details
+│   │   │
+│   │   ├─ login/page.tsx       # Login (no layout)
+│   │   ├─ register/page.tsx    # Register (no layout)
+│   │   │
+│   │   └─ dashboard/           # Dashboard for roles
+│   │       ├─ layout.tsx       # Dashboard layout (Sidebar + Navbar)
+│   │       ├─ page.tsx         # Dashboard landing / statistics
+│   │       ├─ loading.tsx
+│   │       ├─ error.tsx
+│   │       │
+│   │       ├─ posts/           # My posts (CRUD)
+│   │       │   ├─ page.tsx     # List/Search
+│   │       │   ├─ add/page.tsx # Add post
+│   │       │   └─ [id]/page.tsx # Edit post
+│   │       │
+│   │       ├─ manage-posts/page.tsx   # Admin/Moderator approve/reject
+│   │       ├─ categories/page.tsx     # Admin manage categories
+│   │       ├─ users/page.tsx          # Admin manage users
+│   │       └─ profile/page.tsx        # Profile page
+│
+├─ src/
+│   ├─ components/              # Reusable UI components
+│   │   ├─ common/              # Navbar, Footer, Buttons, Inputs, SearchBox
+│   │   ├─ posts/               # PostCard, PostList, PostDetails
+│   │   └─ dashboard/           # StatsCard, PostTable, UserTable, Sidebar
+│
+├─ src/
+│   ├─ features/                # Feature-based logic & API
+│   │   ├─ auth/                # JWT login/register, useAuth hook
+│   │   │   ├─ authAPI.ts
+│   │   │   └─ useAuth.ts
+│   │   ├─ posts/               # API calls, hooks
+│   │   │   ├─ postsAPI.ts
+│   │   │   └─ usePosts.ts
+│   │   ├─ categories/          # API + hooks
+│   │   │   └─ categoriesAPI.ts
+│   │   └─ users/               # API + hooks
+│   │       └─ usersAPI.ts
+│
+├─ src/
+│   ├─ context/                 # React Context / Global state
+│   │   ├─ AuthContext.tsx
+│   │   └─ DashboardContext.tsx
+│
+├─ src/
+│   ├─ services/                # API helpers / Axios instance / JWT
+│   │   ├─ axiosInstance.ts
+│   │   └─ jwtInterceptor.ts
+│
+├─ src/
+│   ├─ hooks/                   # Custom reusable hooks
+│   │   ├─ useFetch.ts
+│   │   └─ usePagination.ts
+│
+├─ src/
+│   ├─ types/                   # TypeScript types/interfaces
+│   │   ├─ Post.ts
+│   │   ├─ User.ts
+│   │   └─ Category.ts
+│
+├─ src/
+│   ├─ utils/                   # Utility functions
+│   │   ├─ formatDate.ts
+│   │   └─ validate.ts
+│
+├─ src/
+│   ├─ styles/                  # Global + component styles
+│   │   └─ globals.css
+│
+├─ middleware/                  # JWT + role based route middleware
+│   ├─ auth.ts
+│   └─ roleCheck.ts
+│
+├─ .env.local
+├─ next.config.js
+├─ package.json
+└─ tsconfig.json

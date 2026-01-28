@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -48,11 +47,15 @@ export default function SignUpForm() {
   });
 
   const onSubmit = async (values: SignUpFormValues) => {
-    console.log("Sign Up Values:", values);
-    signIn("google", {
-      callbackUrl: "/dashboard",
-    });
+    // console.log("Sign Up Values:", values);
+    // signIn("google", {
+    //   callbackUrl: "/dashboard",
+    // });
   };
+
+  // const handleRegisterCredentials = async (values: SignUpFormValues) => {
+  //   console.log("handleREgis credentials", values);
+  // };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
