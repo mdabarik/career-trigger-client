@@ -1,4 +1,4 @@
-import AllPosts from "@/components/frontend/AllPosts/AllPosts";
+import AllPosts from "@/components/posts/AllPosts/AllPosts";
 import React from "react";
 
 const PostPage = () => {

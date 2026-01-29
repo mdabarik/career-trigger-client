@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 
-import Navbar from "../../../components/shared/Navbar/navbar";
+import Navbar from "../../../components/common/Navbar/Navbar";
 
 const AboutPage = async () => {
   const res = await fetch("http://localhost:3001/api/posts", {

@@ -1,6 +1,6 @@
-import Container from "@/components/shared/Container/Container";
-import Footer from "@/components/shared/Footer/Footer";
-import Navbar from "@/components/shared/Navbar/navbar";
+import Container from "@/components/common/Container/Container";
+import Footer from "@/components/common/Footer/Footer";
+import Navbar from "@/components/common/Navbar/Navbar";
 import React from "react";
 
 const HomeLayout = ({ children }) => {

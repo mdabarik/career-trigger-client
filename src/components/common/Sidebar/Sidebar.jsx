@@ -1,6 +1,6 @@
 "use client";
 
-import SearchBox from "@/components/frontend/shared/SearchBox/SearchBox";
+import SearchBox from "@/components/common/SearchBox/SearchBox";
 
 const Sidebar = () => {
   return (

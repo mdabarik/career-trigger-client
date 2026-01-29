@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import "./globals.css";
-import AuthProvider from "./AuthProvider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "CareerTrigger | Home",
@@ -15,9 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
-          <div>{children}</div>
-        </AuthProvider>
+        <div>{children}</div>
       </body>
     </html>
   );

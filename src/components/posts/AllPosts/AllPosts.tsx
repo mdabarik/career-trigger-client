@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PostCard from "@/components/shared/PostCard/PostCard";
+import PostCard from "@/components/posts/PostCard/PostCard";
 import { Pagination } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -27,7 +27,7 @@ const AllPosts = () => {
         `http://localhost:3001/api/posts?status=published&page=${page}&limit=${limit}&search=${searchText}`,
         {
           cache: "no-store",
-        }
+        },
       );
       const resJson = await res.json();
       if (!resJson.success) {
@@ -44,7 +44,7 @@ const AllPosts = () => {
 
   const onChangeHandler = (
     _event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     setPage(value);
     console.log(value);
