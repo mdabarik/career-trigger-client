@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import "./globals.css";
+import TanStackProviders from "./providers";
 
 export const metadata: Metadata = {
   title: "CareerTrigger | Home",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>{children}</div>
+        <TanStackProviders>
+          <div>{children}</div>
+        </TanStackProviders>
       </body>
     </html>
   );
