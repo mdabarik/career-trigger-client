@@ -1,11 +1,6 @@
-export interface IPost {
+export interface ICategory {
   _id: string;
-  title: string;
-  categoryId: string;
-  photoUrl: string;
-  description: string;
-  authorId: string;
-  status: "declined" | "published" | "pending";
+  name: string;
 }
 
 export type TResponse<T> = {
@@ -19,5 +14,4 @@ export interface GetPostsParams {
   limit?: number;
   status?: "published" | "declined" | "pending";
   searchText?: string;
-  categoryId?: string;
 }

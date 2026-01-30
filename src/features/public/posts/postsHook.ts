@@ -15,3 +15,7 @@ export function useAllPosts() {
 export function useSearchPosts(searchText: string) {
   return usePosts(undefined, "published", searchText);
 }
+
+export function usePostByCatId(searchText: string, categoryId: string) {
+  return usePosts(undefined, "published", searchText, categoryId);
+}
