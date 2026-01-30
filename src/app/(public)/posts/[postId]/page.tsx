@@ -13,7 +13,7 @@ const PostDetails = async ({
   const post = res?.data;
 
   return (
-    <div className="max-w-[1280px] mx-auto p-4">
+    <div className="max-w-[1280px] mx-auto p-4 mt-5">
       <div className="flex flex-col md:flex-row gap-6 items-start">
         {/* left side */}
         <div className="w-full md:w-1/2">
@@ -33,15 +33,15 @@ const PostDetails = async ({
           <h2 className="text-2xl font-bold">{post?.title}</h2>
           <p className="text-gray-600">
             <span className="font-semibold">Author:</span>{" "}
-            {post?.author || "Fake"}
+            {post?.authorName || "Fake"}
           </p>
           <p className="text-gray-600">
             <span className="font-semibold">Category:</span>{" "}
-            {post?.category || "Fake Cat"}
+            {post?.categoryName || "Fake Cat"}
           </p>
           <p className="text-gray-600">
             <span className="font-semibold">Description:</span>{" "}
-            {post?.desciption || "Fake Desc"}
+            {post?.description || "Fake Desc"}
           </p>
         </div>
       </div>

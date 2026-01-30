@@ -9,9 +9,7 @@ const SearchBox = () => {
     if (searchText.trim() == "") {
       setError("Please enter search text!");
     } else {
-      router.push(
-        `/posts?limit=10&page=1&search=${encodeURIComponent(searchText)}`
-      );
+      router.push(`/posts/?searchText=${encodeURIComponent(searchText)}`);
     }
   };
   return (

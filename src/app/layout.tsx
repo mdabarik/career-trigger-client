@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-// @ts-ignore
 import "./globals.css";
 import TanStackProviders from "./providers";
 

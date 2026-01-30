@@ -1,11 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import PostCard from "@/components/posts/PostCard/PostCard";
 import { useSearchPosts } from "@/features/public/posts/postsHook";
 
 const PostPage = () => {
-  const [searchText, setSearchText] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const initialSearch = searchParams.get("searchText") || "";
+  const [searchText, setSearchText] = useState(initialSearch);
+
+  useEffect(() => {
+    if (searchText.trim()) {
+      router.replace(`/posts?searchText=${encodeURIComponent(searchText)}`);
+    } else {
+      router.replace(`/posts`);
+    }
+  }, [searchText, router]);
 
   const { data, isLoading, error } = useSearchPosts(searchText);
 
@@ -24,16 +37,9 @@ const PostPage = () => {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             className="flex-1 px-3 py-2 border border-gray-300 
-               rounded-l-md focus:outline-none focus:ring-2 
+               rounded-md focus:outline-none focus:ring-2 
                focus:ring-red-500 focus:border-red-500"
           />
-          <button
-            type="button"
-            className="px-4 py-2 bg-red-600 text-white 
-               border border-red-600 rounded-r-md font-medium"
-          >
-            Search
-          </button>
         </div>
 
         {/* posts grid */}

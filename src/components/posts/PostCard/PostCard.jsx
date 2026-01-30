@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function PostCard({ post }) {
-
   return (
     <Card className="bg-white text-black overflow-hidden rounded-[20px] shadow-md shadow-red-200">
       {/* Post Image */}
@@ -37,18 +36,13 @@ export default function PostCard({ post }) {
 
           {/* Tags */}
           <div className="flex gap-2 mt-2">
-            {post.tags?.map((tag, i) => (
-              <span
-                key={i}
-                className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
+            <span className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full">
+              {post.categoryName}
+            </span>
           </div>
 
           <CardDescription className="text-xs text-gray-600 mt-2">
-            {post.details}
+            {post.description}
           </CardDescription>
         </CardHeader>
 
