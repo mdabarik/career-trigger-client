@@ -1,11 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { postsAPI } from "./postsAPI";
-import { IPost } from "./types";
+import { IPost, TResponse } from "./types";
+import { postAPIFetch } from "./postsAPIFetch";
 
-export const usePosts = () => {
-  return useQuery<IPost[]>({
-    queryKey: ["posts"],
-    queryFn: () => postsAPI.getPosts(),
-    staleTime: 1000 * 60,
+export function usePosts(
+  limit?: number,
+  status?: "published" | "declined" | "pending",
+  searchText?: string,
+) {
+  return useQuery({
+    queryKey: ["posts", { limit, status, searchText }],
+    queryFn: async () => {
+      const response = await postAPIFetch.getPosts({
+        limit,
+        status,
+        searchText,
+      });
+      return response as TResponse<IPost[]>;
+    },
   });
-};
+}

@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { IPost } from "./types";
+import { GetPostsParams, IPost, TResponse } from "./types";
 
 export class PostsAPI {
   private client: AxiosInstance;
@@ -12,13 +12,15 @@ export class PostsAPI {
     });
   }
 
-  async getPosts(): Promise<IPost[]> {
-    const response = await this.client.get<IPost[]>("/");
+  async getPosts(params?: GetPostsParams): Promise<TResponse<IPost[]>> {
+    const response = await this.client.get<TResponse<IPost[]>>("/", {
+      params,
+    });
     return response.data;
   }
 
   async getPostById(id: string): Promise<IPost> {
-    const response = await this.client.get<IPost>(`/${id}`);
+    const response = await this.client.get<IPost>(`/id/${id}`);
     return response.data;
   }
 }

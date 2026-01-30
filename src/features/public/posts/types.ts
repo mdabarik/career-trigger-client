@@ -6,3 +6,16 @@ export interface IPost {
   authorId: string;
   status: "declined" | "published" | "pending";
 }
+
+export type TResponse<T> = {
+  success: boolean;
+  message?: string;
+  statusCode: number;
+  data: T;
+};
+
+export interface GetPostsParams {
+  limit?: number;
+  status?: "published" | "declined" | "pending";
+  searchText?: string;
+}
