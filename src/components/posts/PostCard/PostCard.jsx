@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function PostCard({ post }) {
-  // console.log("from PostCard.tsx", post);
 
   return (
     <Card className="bg-white text-black overflow-hidden rounded-[20px] shadow-md shadow-red-200">

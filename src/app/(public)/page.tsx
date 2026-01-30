@@ -13,7 +13,7 @@ const HomePage = () => {
             <h2 className="font-bold text-xl">Latest Posts</h2>
           </div>
 
-          {/* Top 6 Latest Posts */}
+          {/* Latest Post */}
           <div className="grid grid-cols-2 gap-6 w-full">
             <LatestPost />
           </div>
