@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { IPost, TResponse } from "./types";
-import { postAPIFetch } from "./postsAPIFetch";
+import { postsAPI } from "./postsAPI";
 
 export function usePosts(
   limit?: number,
@@ -10,7 +10,7 @@ export function usePosts(
   return useQuery({
     queryKey: ["posts", { limit, status, searchText }],
     queryFn: async () => {
-      const response = await postAPIFetch.getPosts({
+      const response = await postsAPI.getPosts({
         limit,
         status,
         searchText,

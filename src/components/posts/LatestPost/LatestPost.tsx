@@ -1,25 +1,22 @@
+"use server";
 import PostCard from "@/components/posts/PostCard/PostCard";
 
-const LatestPost = async ({ limit }) => {
-  const res = await fetch(
-    `http://localhost:3001/api/posts?sortById=desc&status=published&limit=${limit}&page=1`,
-    {
-      cache: "no-store",
-    },
-  );
+export default async function LatestPost() {
+  const res = await fetch("http://localhost:3001/api/posts?limit=6", {
+    cache: "no-store",
+  });
 
-  const jsonDATA = await res.json();
-  const posts = jsonDATA.data.posts;
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
 
-  // console.log("LatestPosts.tsx", posts[0]);
+  const data = await res.json();
 
   return (
     <>
-      {posts?.map((post) => {
-        return <PostCard key={post._id} post={post} />;
-      })}
+      {data?.data.map((post: any) => (
+        <PostCard key={post._id} post={post} />
+      ))}
     </>
   );
-};
-
-export default LatestPost;
+}

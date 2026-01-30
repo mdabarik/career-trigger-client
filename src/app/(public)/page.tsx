@@ -15,7 +15,7 @@ const HomePage = () => {
 
           {/* Top 6 Latest Posts */}
           <div className="grid grid-cols-2 gap-6 w-full">
-            <LatestPost limit={6} />
+            <LatestPost />
           </div>
 
           <div className="flex justify-center m-8">
@@ -23,7 +23,7 @@ const HomePage = () => {
               variant="outline"
               className="border-red-600 px-10 py-5 text-md text-red-600 hover:bg-red-50"
             >
-              <Link href="/posts?page=1&limit=10">View All Posts</Link>
+              <Link href="/posts">View All Posts</Link>
             </Button>
           </div>
         </div>

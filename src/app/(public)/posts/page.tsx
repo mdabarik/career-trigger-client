@@ -1,37 +1,45 @@
 "use client";
 
+import { useState } from "react";
 import PostCard from "@/components/posts/PostCard/PostCard";
-import { Pagination, Stack } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
-import { usePosts } from "@/features/public/posts/usePosts"; // ✅ custom hook
-import { usePostById } from "@/features/public/posts/usePostById";
+import { useSearchPosts } from "@/features/public/posts/postsHook";
 
 const PostPage = () => {
-  const router = useRouter();
+  const [searchText, setSearchText] = useState("");
 
-  const { data, isLoading, error } = usePosts();
+  const { data, isLoading, error } = useSearchPosts(searchText);
 
-  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong!</p>;
-
-  // console.log(data?.data, "data from PostPage.tsx");
 
   return (
     <div className="flex flex-row justify-between items-start max-w-[1280px] mx-auto">
       <div className="w-full my-7">
         <h2 className="font-bold text-xl mb-4">Latest Posts</h2>
 
-        {/* search field */}
-        <div className="flex w-[50%] pb-4 gap-2">
+        {/* search box */}
+        <div className="flex w-[50%] pb-4">
           <input
             type="text"
             placeholder="Search..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="flex-1 px-3 py-2 border border-gray-300 
+               rounded-l-md focus:outline-none focus:ring-2 
+               focus:ring-red-500 focus:border-red-500"
           />
+          <button
+            type="button"
+            className="px-4 py-2 bg-red-600 text-white 
+               border border-red-600 rounded-r-md font-medium"
+          >
+            Search
+          </button>
         </div>
 
         {/* posts grid */}
         <div className="grid grid-cols-3 gap-6 w-full">
+          {isLoading && <p>Loading...</p>}
+          {data?.data.length === 0 && <p>No Post Found</p>}
           {data?.data?.map((post: any) => (
             <PostCard key={post._id} post={post} />
           ))}

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { postsAPI } from "./postsAPIAxios";
+import { postsAPI } from "./postsAPI";
 import { IPost } from "./types";
 
 export const usePostById = (id: string) => {
