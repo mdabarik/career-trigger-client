@@ -7,7 +7,9 @@ export default async function LatestPost() {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch posts");
+    // console.log(res?.statusText, "res");
+    // throw new Error("Failed to fetch posts");
+    return res?.statusText;
   }
 
   const data = await res.json();

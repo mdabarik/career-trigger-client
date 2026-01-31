@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import PostCard from "@/components/posts/PostCard/PostCard";
 import { useSearchPosts } from "@/features/public/posts/postsHook";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 const PostPage = () => {
   const searchParams = useSearchParams();
@@ -22,7 +23,12 @@ const PostPage = () => {
 
   const { data, isLoading, error } = useSearchPosts(searchText);
 
-  if (error) return <p>Something went wrong!</p>;
+  if (error) {
+    // console.log(error?.response?.statusText, "error");
+    // const status = error.response?.status;
+    // return getErrorMessage(status);
+    return error?.response?.statusText;
+  }
 
   return (
     <div className="flex flex-row justify-between items-start max-w-[1280px] mx-auto">

@@ -12,7 +12,7 @@ const Categories = () => {
   return (
     <>
       <div className="flex flex-row flex-wrap gap-2">
-        {categories?.categories?.map((category) => {
+        {categories?.map((category) => {
           return (
             <Link
               key={category?._id}
