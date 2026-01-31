@@ -22,16 +22,6 @@ const AboutPage = async () => {
           technology in meaningful ways. With creativity and commitment, we
           strive to deliver excellence in every project we undertake.
         </p>
-
-        <div className="mt-8 bg-white shadow-md rounded-lg p-6 max-w-xl">
-          <h2 className="text-xl font-semibold text-gray-700 mb-3">
-            Our Vision
-          </h2>
-          <p className="text-gray-600">
-            To empower communities through technology, inspire innovation, and
-            create lasting impact across industries worldwide.
-          </p>
-        </div>
       </div>
     </div>
   );

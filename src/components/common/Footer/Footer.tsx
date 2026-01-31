@@ -36,9 +36,6 @@ const Footer = () => {
             <Link href="/posts" className="text-sm lg:text-base">
               All Posts
             </Link>
-            <Link href="/quizes" className="text-sm lg:text-base">
-              Quizes
-            </Link>
             <Link href="/contact" className="text-sm lg:text-base">
               Contact
             </Link>

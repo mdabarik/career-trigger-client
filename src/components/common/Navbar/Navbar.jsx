@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import Image from "next/image";
 import LogoIcon from "../Logo/Logo";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const linkClasses = (href) =>
+    pathname === href ? "text-red-600 font-semibold" : "hover:text-red-600";
 
   return (
     <nav className="px-8 py-3 bg-background border-b border-red-100 shadow-[0_4px_10px_rgba(220,38,38,0.2)] min-h-[60px] w-full">
@@ -26,19 +30,16 @@ export default function Navbar() {
 
         {/* Desktop menu */}
         <div className="hidden md:flex gap-4 items-center">
-          <Link href="/" className="hover:text-red-600">
+          <Link href="/" className={linkClasses("/")}>
             Home
           </Link>
-          <Link href="/posts" className="hover:text-red-600">
+          <Link href="/posts" className={linkClasses("/posts")}>
             All Posts
           </Link>
-          <Link href="/quizes" className="hover:text-red-600">
-            Quizes
-          </Link>
-          <Link href="/contact" className="hover:text-red-600">
+          <Link href="/contact" className={linkClasses("/contact")}>
             Contact
           </Link>
-          <Link href="/about" className="hover:text-red-600">
+          <Link href="/about" className={linkClasses("/about")}>
             About
           </Link>
 
@@ -62,19 +63,16 @@ export default function Navbar() {
         {/* Mobile dropdown */}
         {open && (
           <div className="absolute top-12 left-0 w-full bg-background border-b flex flex-col gap-2 p-4 md:hidden">
-            <Link href="/" className="hover:text-red-600">
+            <Link href="/" className={linkClasses("/")}>
               Home
             </Link>
-            <Link href="/posts" className="hover:text-red-600">
+            <Link href="/posts" className={linkClasses("/posts")}>
               All Posts
             </Link>
-            <Link href="/quizes" className="hover:text-red-600">
-              Quizes
-            </Link>
-            <Link href="/contact" className="hover:text-red-600">
+            <Link href="/contact" className={linkClasses("/contact")}>
               Contact
             </Link>
-            <Link href="/about" className="hover:text-red-600">
+            <Link href="/about" className={linkClasses("/about")}>
               About
             </Link>
             <Button className="bg-red-600 hover:bg-red-700 text-white">
