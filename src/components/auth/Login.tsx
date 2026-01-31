@@ -68,3 +68,47 @@ export default function SignInPage() {
     </div>
   );
 }
+
+/*
+
+
+import React, { useState } from "react";
+import { useLogin } from "@/features/auth/useLogin";
+
+const LoginForm = () => {
+  const login = useLogin();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    login.mutate({ email, password });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <button type="submit" disabled={login.isPending}>
+        {login.isPending ? "Logging in..." : "Login"}
+      </button>
+
+      {login.isSuccess && <p>Login successful!</p>}
+      {login.isError && <p> Login failed: {(login.error as any).message}</p>}
+    </form>
+  );
+};
+
+export default LoginForm;
+
+*/
