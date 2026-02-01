@@ -1,6 +1,7 @@
 import Container from "@/components/common/Container/Container";
 import Footer from "@/components/common/Footer/Footer";
 import Navbar from "@/components/common/Navbar/Navbar";
+import { getUserFromCookie } from "@/lib/auth.server";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (

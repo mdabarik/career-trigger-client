@@ -3,9 +3,10 @@ import Cookies from "js-cookie";
 class TokenService {
   setAccessToken(token: string) {
     Cookies.set("accessToken", token, {
-      secure: true,
+      secure: window.location.protocol === "https:",
       sameSite: "strict",
-      expires: 15 * 60 * 1000, // 15 min
+      path: "/",
+      expires: 1 / 96,
     });
   }
 
@@ -14,14 +15,15 @@ class TokenService {
   }
 
   clearAccessToken() {
-    Cookies.remove("accessToken");
+    Cookies.remove("accessToken", { path: "/" });
   }
 
   setRefreshToken(token: string) {
     Cookies.set("refreshToken", token, {
-      secure: true,
+      secure: window.location.protocol === "https:",
       sameSite: "strict",
-      expires: 7 * 24 * 60 * 60 * 1000, // 7 din
+      path: "/",
+      expires: 7,
     });
   }
 
@@ -30,7 +32,7 @@ class TokenService {
   }
 
   clearRefreshToken() {
-    Cookies.remove("refreshToken");
+    Cookies.remove("refreshToken", { path: "/" });
   }
 
   clearAllTokens() {

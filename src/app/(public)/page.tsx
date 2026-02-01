@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/common/Sidebar/Sidebar";
 import LatestPost from "@/components/posts/LatestPost/LatestPost";
 import Link from "next/link";
+import { useAuth } from "@/features/auth/useAuth";
+import { tokenService } from "@/features/auth/utils";
 
 const HomePage = () => {
   return (

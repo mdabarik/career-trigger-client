@@ -6,10 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import LogoIcon from "../Logo/Logo";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/features/auth/useAuth";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  const { user, logout } = useAuth();
+  console.log(user, "userlogin");
 
   const linkClasses = (href) =>
     pathname === href ? "text-red-600 font-semibold" : "hover:text-red-600";
@@ -44,15 +48,23 @@ export default function Navbar() {
           </Link>
 
           {/* Static User Buttons */}
-          <Button className="bg-red-600 hover:bg-red-700 text-white">
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button
-            variant="outline"
-            className="border-red-600 text-red-600 hover:bg-red-50"
-          >
-            <Link href="/register">Register</Link>
-          </Button>
+          {user == null ? (
+            <>
+              <Button className="bg-red-600 hover:bg-red-700 text-white">
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-red-600 text-red-600 hover:bg-red-50"
+              >
+                <Link href="/register">Register</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={() => logout()}>Logout</Button>
+            </>
+          )}
         </div>
 
         {/* Mobile menu toggle */}

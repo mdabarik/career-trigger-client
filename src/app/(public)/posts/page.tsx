@@ -5,10 +5,17 @@ import { useSearchParams, useRouter } from "next/navigation";
 import PostCard from "@/components/posts/PostCard/PostCard";
 import { useSearchPosts } from "@/features/public/posts/postsHook";
 import { getErrorMessage } from "@/utils/errorMessage";
+import { tokenService } from "@/features/auth/utils";
+import { useAuth } from "@/features/auth/useAuth";
 
 const PostPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const data1 = useAuth();
+
+  // console.log(tokenService.getAccessToken(), "tokenservice");
+  // console.log(data1, "useauth data");
 
   const initialSearch = searchParams.get("searchText") || "";
   const [searchText, setSearchText] = useState(initialSearch);

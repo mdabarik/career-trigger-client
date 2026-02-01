@@ -1,13 +1,13 @@
-import axios from "axios";
+import api from "./interceptors";
 
 export const loginApi = (payload: { email: string; password: string }) =>
-  axios.post("/auth/login", payload);
+  api.post("/api/auth/login", payload);
 
 export const registerApi = (payload: {
   name: string;
   email: string;
   password: string;
-}) => axios.post("/auth/register", payload);
+}) => api.post("/auth/register", payload);
 
 export const refreshApi = (refreshToken: string) =>
-  axios.post("/auth/refresh", { refreshToken });
+  api.post("/auth/refresh", { refreshToken });
