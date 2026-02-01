@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
   const data = await getUserFromCookie();
 
-  console.log(data, "layout.tsx");
+  // console.log(data, "layout.tsx");
 
   return (
     <div>

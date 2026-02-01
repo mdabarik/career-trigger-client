@@ -1,12 +1,9 @@
-import MyEditor from "@/components/RichEditor/MyEditor";
 import React from "react";
 
 const UserPage = () => {
   return (
     <div>
-      <div>
-        <MyEditor />
-      </div>
+      <h2>users page</h2>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const authRoutes = ["/login", "/register", "/forgot-password"];
+const authRoutes = ["/login", "/register"];
 
-const privateRootPaths = ["/dashboard", "/quizes", "/profile"];
+const privateRootPaths = ["/dashboard", "/quizes"];
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
