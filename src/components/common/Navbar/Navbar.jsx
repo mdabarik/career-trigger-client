@@ -5,18 +5,22 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import LogoIcon from "../Logo/Logo";
-import { usePathname } from "next/navigation";
-import { useAuth } from "@/features/auth/useAuth";
+import { usePathname, useRouter } from "next/navigation";
+import { tokenService } from "@/features/auth/utils";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  console.log(user, "useruser");
 
-  const { user, logout } = useAuth();
-  console.log(user, "userlogin");
+  const handleLogout = () => {
+    tokenService.clearAllTokens();
+    router.push("/login");
+  };
 
   const linkClasses = (href) =>
-    pathname === href ? "text-red-600 font-semibold" : "hover:text-red-600";
+    pathname === href ? "text-red-500" : "hover:text-red-600";
 
   return (
     <nav className="px-8 py-3 bg-background border-b border-red-100 shadow-[0_4px_10px_rgba(220,38,38,0.2)] min-h-[60px] w-full">
@@ -47,8 +51,8 @@ export default function Navbar() {
             About
           </Link>
 
-          {/* Static User Buttons */}
-          {user == null ? (
+          {/* User Buttons */}
+          {!user || user === null ? (
             <>
               <Button className="bg-red-600 hover:bg-red-700 text-white">
                 <Link href="/login">Login</Link>
@@ -61,9 +65,7 @@ export default function Navbar() {
               </Button>
             </>
           ) : (
-            <>
-              <Button onClick={() => logout()}>Logout</Button>
-            </>
+            <Button onClick={handleLogout}>Logout</Button>
           )}
         </div>
 
@@ -88,13 +90,13 @@ export default function Navbar() {
               About
             </Link>
             <Button className="bg-red-600 hover:bg-red-700 text-white">
-              Login
+              <Link href="/login">Login</Link>
             </Button>
             <Button
               variant="outline"
               className="border-red-600 text-red-600 hover:bg-red-50"
             >
-              Register
+              <Link href="/register">Register</Link>
             </Button>
           </div>
         )}

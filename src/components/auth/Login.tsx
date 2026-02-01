@@ -69,6 +69,11 @@ export default function SignInPage() {
           >
             {login.isPending ? "Logging in..." : "Login"}
           </Button>
+          <div className="flex items-center justify-center space-x-2">
+            <div className="h-px w-16 bg-gray-300" />
+            <span className="text-sm text-gray-500">or continue with</span>
+            <div className="h-px w-16 bg-gray-300" />
+          </div>
         </form>
 
         {login.isError && (
@@ -78,6 +83,30 @@ export default function SignInPage() {
               "Something went wrong"}
           </p>
         )}
+
+        <div className="flex flex-col gap-3 mt-4">
+          <Button
+            variant="outline"
+            className="flex items-center justify-center gap-2 border-red-400 text-red-600 hover:bg-red-50"
+            onClick={() => console.log("Login with Google")}
+          >
+            <Image
+              src="https://img.icons8.com/color/24/google-logo.png"
+              alt="Google"
+              className="w-5 h-5"
+              width={20}
+              height={20}
+            />
+            Sign Up with Google
+          </Button>
+        </div>
+
+        <p className="text-center text-sm text-gray-500 mt-4">
+          Do not have an account?{" "}
+          <Link href="/register" className="text-red-600 hover:underline">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export const registerApi = (payload: {
   name: string;
   email: string;
   password: string;
-}) => api.post("/auth/register", payload);
+}) => api.post("/api/auth/register", payload);
 
 export const refreshApi = (refreshToken: string) =>
   api.post("/auth/refresh", { refreshToken });

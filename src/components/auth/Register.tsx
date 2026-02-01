@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 import {
   Form,
@@ -16,7 +16,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import Image from "next/image";
+import { useRegister } from "@/features/auth/hooks";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const SignUpSchema = z
   .object({
@@ -44,18 +46,32 @@ export default function SignUpForm() {
       password: "",
       confirmPassword: "",
     },
+    mode: "onChange",
   });
 
-  const onSubmit = async (values: SignUpFormValues) => {
-    // console.log("Sign Up Values:", values);
-    // signIn("google", {
-    //   callbackUrl: "/dashboard",
-    // });
-  };
+  const [error, setError] = useState("");
 
-  // const handleRegisterCredentials = async (values: SignUpFormValues) => {
-  //   console.log("handleREgis credentials", values);
-  // };
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callbackUrl") || "/";
+
+  const register = useRegister();
+  const router = useRouter();
+
+  const onSubmit = (values: SignUpFormValues) => {
+    const payload = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    };
+    // console.log("Form submitted:", values);
+    register.mutate(payload, {
+      onSuccess: () => router.push(callback),
+      onError: (err) => {
+        console.log(err, "err register");
+        setError("Something went wrong!");
+      },
+    });
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -69,38 +85,34 @@ export default function SignUpForm() {
               Register
             </h2>
 
-            {/* Name */}
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-red-600">Name</FormLabel>
+                  <FormLabel className="text-sm font-medium text-red-600">
+                    Name
+                  </FormLabel>
                   <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="Enter your name"
-                      className="border-red-400 focus:border-red-600 focus:ring-red-600"
-                      {...field}
-                    />
+                    <Input placeholder="Enter your name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Email */}
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-red-600">Email</FormLabel>
+                  <FormLabel className="text-sm font-medium text-red-600">
+                    Email
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="email"
                       placeholder="Enter your email"
-                      className="border-red-400 focus:border-red-600 focus:ring-red-600"
                       {...field}
                     />
                   </FormControl>
@@ -109,18 +121,18 @@ export default function SignUpForm() {
               )}
             />
 
-            {/* Password */}
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-red-600">Password</FormLabel>
+                  <FormLabel className="text-sm font-medium text-red-600">
+                    Password
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="password"
                       placeholder="Enter your password"
-                      className="border-red-400 focus:border-red-600 focus:ring-red-600"
                       {...field}
                     />
                   </FormControl>
@@ -129,20 +141,18 @@ export default function SignUpForm() {
               )}
             />
 
-            {/* Confirm Password */}
             <FormField
               control={form.control}
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-red-600">
+                  <FormLabel className="text-sm font-medium text-red-600">
                     Confirm Password
                   </FormLabel>
                   <FormControl>
                     <Input
                       type="password"
                       placeholder="Confirm your password"
-                      className="border-red-400 focus:border-red-600 focus:ring-red-600"
                       {...field}
                     />
                   </FormControl>
@@ -157,6 +167,15 @@ export default function SignUpForm() {
             >
               Register Now
             </Button>
+
+            {error ? (
+              <p className="text-center text-sm text-red-600 mt-2">
+                Something went wrong
+              </p>
+            ) : (
+              <></>
+            )}
+
             <div className="flex items-center justify-center space-x-2">
               <div className="h-px w-16 bg-gray-300" />
               <span className="text-sm text-gray-500">or continue with</span>
