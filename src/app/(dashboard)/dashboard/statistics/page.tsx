@@ -1,6 +1,8 @@
 "use client";
 
+import { useCatStats } from "@/features/dashboard/useCatStats";
 import { useStats } from "@/features/dashboard/useStats";
+import { useUserStats } from "@/features/dashboard/useUserStats";
 import privateClientAPI from "@/lib/api/privateClientAPI.client";
 import React from "react";
 import {
@@ -14,10 +16,13 @@ import {
 
 const StatisticsPage = () => {
   const { data: stats, isLoading, isError } = useStats();
+  const { data: userStats } = useUserStats();
+  const { data: catStats } = useCatStats();
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error loading stats</p>;
 
-  // console.log(stats, "data,useSate");
+  console.log(catStats, "data,useSate");
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -54,14 +59,14 @@ const StatisticsPage = () => {
         <div className="flex flex-col items-center justify-center bg-purple-500 text-white rounded-lg shadow-md p-6">
           <FaUsers size={40} />
           <h3 className="text-lg font-semibold mt-2">Total Users</h3>
-          <p className="text-2xl font-bold">350</p>
+          <p className="text-2xl font-bold">{userStats?.totalUsers}</p>
         </div>
 
         {/* Card 6: Total Categories */}
         <div className="flex flex-col items-center justify-center bg-pink-500 text-white rounded-lg shadow-md p-6">
           <FaList size={40} />
           <h3 className="text-lg font-semibold mt-2">Total Categories</h3>
-          <p className="text-2xl font-bold">12</p>
+          <p className="text-2xl font-bold">{catStats?.totalCategories}</p>
         </div>
       </div>
     </div>
