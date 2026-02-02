@@ -10,35 +10,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useUser } from "@/features/auth/useUser";
+import { useAllUsers } from "@/features/dashboard/users/useAllUsers";
+import { useUpdateUserRole } from "@/features/dashboard/users/useUpdateUserRole";
 
 const UserPage = () => {
-  const users = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      role: "user",
-      provider: "credentials",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      role: "editor",
-      provider: "google",
-    },
-    {
-      id: 3,
-      name: "Admin User",
-      email: "admin@example.com",
-      role: "admin",
-      provider: "github",
-    },
-  ];
+  const { data: users, isLoading } = useAllUsers();
+  const userData: any = useUser();
+
+  const { mutate: updateRole, isPending } = useUpdateUserRole();
+
+  if (isLoading) return "Loading...";
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h2 className="text-2xl font-bold text-gray-800">
           Users: {users.length}
@@ -52,7 +37,6 @@ const UserPage = () => {
         </div>
       </div>
 
-      {/* Table Section */}
       <div className="overflow-x-auto bg-white rounded-lg shadow">
         <Table>
           <TableHeader>
@@ -66,9 +50,9 @@ const UserPage = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.id}</TableCell>
+            {users.map((user: any, index: number) => (
+              <TableRow key={user._id}>
+                <TableCell>{index + 1}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
@@ -85,23 +69,40 @@ const UserPage = () => {
                   </span>
                 </TableCell>
                 <TableCell>{user.provider}</TableCell>
-                <TableCell className="flex gap-2 justify-center">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => console.log("Make Editor:", user.id)}
-                  >
-                    Make Editor
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="bg-red-600 text-white hover:bg-red-700"
-                    onClick={() => console.log("Make Admin:", user.id)}
-                  >
-                    Make Admin
-                  </Button>
-                </TableCell>
+
+                {user?._id == userData?.id ? null : (
+                  <TableCell className="flex gap-2 justify-center">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => updateRole({ id: user._id, role: "user" })}
+                      disabled={isPending}
+                    >
+                      Make User
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        updateRole({ id: user._id, role: "editor" })
+                      }
+                      disabled={isPending}
+                    >
+                      Make Editor
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-red-600 text-white hover:bg-red-700"
+                      onClick={() =>
+                        updateRole({ id: user._id, role: "admin" })
+                      }
+                      disabled={isPending}
+                    >
+                      Make Admin
+                    </Button>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

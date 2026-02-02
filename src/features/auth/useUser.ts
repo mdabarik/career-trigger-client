@@ -14,7 +14,7 @@ export const useUser = () => {
     }
   });
 
-  console.log(user, "useUser()");
+  // console.log(user, "useUser()");
 
   return user;
 };
