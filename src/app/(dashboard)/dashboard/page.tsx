@@ -1,12 +1,13 @@
 import authOptions from "@/helper/authOptions";
 import { getServerSession } from "next-auth";
+import StatisticsPage from "./statistics/page";
 
 const Dashbaordpage = async () => {
   const session = await getServerSession(authOptions);
 
-  console.log("dashboard/page.tsx", session);
+  // console.log("dashboard/page.tsx", session);
 
-  return <div>Dashboard Home</div>;
+  return <StatisticsPage />;
 };
 
 export default Dashbaordpage;

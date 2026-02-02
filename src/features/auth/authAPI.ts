@@ -1,13 +1,13 @@
-import api from "./interceptors";
+import privateClientAPI from "@/lib/api/privateClientAPI.client";
 
 export const loginApi = (payload: { email: string; password: string }) =>
-  api.post("/api/auth/login", payload);
+  privateClientAPI.post("/api/auth/login", payload);
 
 export const registerApi = (payload: {
   name: string;
   email: string;
   password: string;
-}) => api.post("/api/auth/register", payload);
+}) => privateClientAPI.post("/api/auth/register", payload);
 
 export const refreshApi = (refreshToken: string) =>
-  api.post("/auth/refresh", { refreshToken });
+  privateClientAPI.post("/api/auth/refresh", { refreshToken });

@@ -12,7 +12,7 @@ export default function Navbar({ user }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  console.log(user, "useruser");
+  // console.log(user, "useruser");
 
   const handleLogout = () => {
     tokenService.clearAllTokens();

@@ -7,7 +7,7 @@ export const useLogin = () =>
     mutationFn: loginApi,
     onSuccess: (res) => {
       tokenService.setAccessToken(res.data.accessToken);
-      tokenService.setRefreshToken(res.data.accessToken);
+      tokenService.setRefreshToken(res.data.refreshToken);
     },
   });
 
