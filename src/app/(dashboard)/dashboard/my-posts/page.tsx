@@ -21,13 +21,31 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import Link from "next/link";
 
-const CategoryTable = () => {
-  const categories = [
-    { id: 1, name: "Tech" },
-    { id: 2, name: "Lifestyle" },
-    { id: 3, name: "Education" },
-    { id: 4, name: "Business" },
+const PostPageDashboard = () => {
+  const posts = [
+    {
+      id: 1,
+      title: "First Post",
+      category: "Tech",
+      author: "John Doe",
+      status: "Approved",
+    },
+    {
+      id: 2,
+      title: "Second Post",
+      category: "Lifestyle",
+      author: "Jane Smith",
+      status: "Pending",
+    },
+    {
+      id: 3,
+      title: "Third Post",
+      category: "Education",
+      author: "Admin",
+      status: "Rejected",
+    },
   ];
 
   return (
@@ -35,16 +53,16 @@ const CategoryTable = () => {
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h2 className="text-2xl font-bold text-gray-800">
-          Categories: {categories.length}
+          My Posts: {posts.length}
         </h2>
         <div className="flex gap-2">
           <Input
             type="text"
-            placeholder="Search Category..."
+            placeholder="Search Posts..."
             className="w-full md:w-64"
           />
           <Button className="bg-red-600 text-white hover:bg-red-700">
-            Add New Category
+            <Link href={"/dashboard/my-posts/add-new-posts"}>Add New Post</Link>
           </Button>
         </div>
       </div>
@@ -55,16 +73,37 @@ const CategoryTable = () => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-16">SL</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead className="text-center">Actions</TableHead>
+              <TableHead>Title</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead>Author</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-center">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories.map((cat, index) => (
-              <TableRow key={cat.id}>
+            {posts.map((post, index) => (
+              <TableRow key={post.id}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{cat.name}</TableCell>
+                <TableCell>{post.title}</TableCell>
+                <TableCell>{post.category}</TableCell>
+                <TableCell>{post.author}</TableCell>
+                <TableCell>
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-semibold ${
+                      post.status === "Approved"
+                        ? "bg-green-100 text-green-700"
+                        : post.status === "Pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {post.status}
+                  </span>
+                </TableCell>
                 <TableCell className="flex gap-2 justify-center">
+                  <Button variant="outline" size="sm">
+                    View
+                  </Button>
                   <Button variant="outline" size="sm">
                     Edit
                   </Button>
@@ -85,7 +124,7 @@ const CategoryTable = () => {
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
                           This action cannot be undone. It will permanently
-                          delete category <strong>{cat.name}</strong>.
+                          delete <strong>{post.title}</strong>.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -93,7 +132,7 @@ const CategoryTable = () => {
                         <AlertDialogAction
                           className="bg-red-600 text-white hover:bg-red-700"
                           onClick={() => {
-                            console.log("Deleted category:", cat.id);
+                            console.log("Deleted post:", post.id);
                           }}
                         >
                           Confirm Delete
@@ -111,4 +150,4 @@ const CategoryTable = () => {
   );
 };
 
-export default CategoryTable;
+export default PostPageDashboard;

@@ -16,6 +16,7 @@ export default function Navbar({ user }) {
 
   const handleLogout = () => {
     tokenService.clearAllTokens();
+    l;
     router.push("/login");
   };
 

@@ -22,15 +22,33 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
           <Link href={"/dashboard/statistics"} className="hover:text-red-600">
             Statistics
           </Link>
-          <Link href={"/dashboard/posts"} className="hover:text-red-600">
-            Manage Posts
+          <Link href={"/dashboard/my-posts"} className="hover:text-red-600">
+            My Posts
           </Link>
-          <Link href={"/dashboard/categories"} className="hover:text-red-600">
-            Categories
-          </Link>
-          <Link href={"/dashboard/users"} className="hover:text-red-600">
-            Users
-          </Link>
+          {user?.role === "editor" || user?.role === "admin" ? (
+            <Link
+              href={"/dashboard/manage-posts"}
+              className="hover:text-red-600"
+            >
+              Manage Posts
+            </Link>
+          ) : (
+            <></>
+          )}
+          {user?.role === "admin" ? (
+            <Link href={"/dashboard/categories"} className="hover:text-red-600">
+              Manage Categories
+            </Link>
+          ) : (
+            <></>
+          )}
+          {user?.role === "admin" ? (
+            <Link href={"/dashboard/users"} className="hover:text-red-600">
+              Users
+            </Link>
+          ) : (
+            <></>
+          )}
         </nav>
         <div className="mt-auto flex border-t pt-4">
           <nav className="flex flex-col space-y-3 text-gray-700">
@@ -45,7 +63,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 w-full">
       {/* Desktop Sidebar */}
       <aside className="hidden md:block w-64 bg-white shadow-lg">
         <SidebarContent />
@@ -67,7 +85,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
       </Sheet>
 
       {/* Main Content */}
-      <div>{children}</div>
+      <div className="w-full">{children}</div>
     </div>
   );
 };
