@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -10,6 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -21,45 +24,59 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { useCategories } from "@/features/public/categories/useCategories";
+
+import { useSearchCategories } from "@/features/dashboard/categories/useSearchCategories";
 import { useDeleteCategory } from "@/features/dashboard/categories/useDeleteCategories";
-import { useUpdateCategory } from "@/features/dashboard/categories/useUpdateCategories";
-import Link from "next/link";
 
-const CategoryTable = () => {
-  const { data: categories, isLoading } = useCategories();
+const CategoryTablePage = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initial = searchParams?.get("search") ?? "";
+  const [search, setSearch] = useState(initial);
+
+  useEffect(() => {
+    const url =
+      search && search.trim()
+        ? `/dashboard/categories?search=${encodeURIComponent(search)}`
+        : `/dashboard/categories`;
+    router.replace(url);
+  }, [search, router]);
+
+  const {
+    data: categoriesResp,
+    isLoading,
+    isError,
+  } = useSearchCategories(search);
   const { mutate: deleteCategory } = useDeleteCategory();
-  const { mutate: updateCategory } = useUpdateCategory();
-  console.log(categories, "categories useCate");
-  // const categories = [
-  //   { id: 1, name: "Tech" },
-  //   { id: 2, name: "Lifestyle" },
-  //   { id: 3, name: "Education" },
-  //   { id: 4, name: "Business" },
-  // ];
 
-  if (isLoading) return "Loading...";
+  const categories = categoriesResp?.data ?? [];
+
+  // if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Failed to load categories</p>;
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h2 className="text-2xl font-bold text-gray-800">
-          Categories: {categories?.data?.length}
+          Categories: {categories.length}
         </h2>
+
         <div className="flex gap-2">
           <Input
             type="text"
             placeholder="Search Category..."
             className="w-full md:w-64"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <Button className="bg-red-600 text-white hover:bg-red-700">
-            Add New Category
+            <Link href={"/dashboard/categories/add-new-cat"}>
+              Add New Category
+            </Link>
           </Button>
         </div>
       </div>
 
-      {/* Table Section */}
       <div className="overflow-x-auto bg-white rounded-lg shadow">
         <Table>
           <TableHeader>
@@ -69,17 +86,25 @@ const CategoryTable = () => {
               <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
-            {categories?.data?.map((cat, index) => (
+            {categories.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={3} className="text-center py-6">
+                  No categories found
+                </TableCell>
+              </TableRow>
+            )}
+
+            {categories.map((cat: any, index: number) => (
               <TableRow key={cat._id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{cat.name}</TableCell>
                 <TableCell className="flex gap-2 justify-center">
                   <Button variant="outline" size="sm">
-                    <Link href={`/dashboard/categories/${cat?._id}`}>Edit</Link>
+                    <Link href={`/dashboard/categories/${cat._id}`}>Edit</Link>
                   </Button>
 
-                  {/* Delete with Confirmation Modal */}
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button
@@ -90,6 +115,7 @@ const CategoryTable = () => {
                         Delete
                       </Button>
                     </AlertDialogTrigger>
+
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
@@ -98,6 +124,7 @@ const CategoryTable = () => {
                           delete category <strong>{cat.name}</strong>.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
+
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
@@ -119,4 +146,4 @@ const CategoryTable = () => {
   );
 };
 
-export default CategoryTable;
+export default CategoryTablePage;

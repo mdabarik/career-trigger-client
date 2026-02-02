@@ -1,24 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import privateClientAPI from "@/lib/api/privateClientAPI.client";
-
-const updateCategory = async ({
-  id,
-  payload,
-}: {
-  id: string;
-  payload: any;
-}) => {
-  const res = await privateClientAPI.get(`/api/categories`);
-  return res?.data?.data;
+export const postsAPI = {
+  getPosts: async ({ searchText }: { searchText?: string }) => {
+    const res = await privateClientAPI.get("/api/posts", {
+      params: { searchText },
+    });
+    return res.data;
+  },
 };
 
-export const useCategories = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: updateCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-    },
+export const useCategories = (search?: string) => {
+  return useQuery({
+    queryKey: ["categories", search],
+    queryFn: () => fetchCategories(search),
   });
 };

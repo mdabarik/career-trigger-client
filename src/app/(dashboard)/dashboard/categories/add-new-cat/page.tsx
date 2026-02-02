@@ -3,18 +3,27 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCreateCategory } from "@/features/dashboard/categories/useCreateCategory";
 
-const EditCategoryPage = ({
+const AddNewCategory = ({
   category,
 }: {
   category: { id: number; name: string };
 }) => {
   const [name, setName] = useState(category?.name);
+  const {
+    mutate: createCategory,
+    isPending,
+    isError,
+    error,
+  } = useCreateCategory();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updated category:", { id: category?.id, name });
+    // console.log("Updated category:", { id: category?.id, name });
     // logic
+    const payload = { categoryName: name };
+    createCategory(payload as any);
   };
 
   return (
@@ -46,4 +55,4 @@ const EditCategoryPage = ({
   );
 };
 
-export default EditCategoryPage;
+export default AddNewCategory;
