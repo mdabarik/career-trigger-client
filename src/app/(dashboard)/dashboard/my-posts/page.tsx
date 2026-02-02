@@ -22,31 +22,59 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDashboardSearchPosts } from "@/features/dashboard/posts/postsHooks";
 
 const PostPageDashboard = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "First Post",
-      category: "Tech",
-      author: "John Doe",
-      status: "Approved",
-    },
-    {
-      id: 2,
-      title: "Second Post",
-      category: "Lifestyle",
-      author: "Jane Smith",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      title: "Third Post",
-      category: "Education",
-      author: "Admin",
-      status: "Rejected",
-    },
-  ];
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initial = searchParams?.get("search") ?? "";
+  const [search, setSearch] = useState(initial);
+
+  useEffect(() => {
+    const url =
+      search && search.trim()
+        ? `/dashboard/my-posts?search=${encodeURIComponent(search)}`
+        : `/dashboard/my-posts`;
+    router.replace(url);
+  }, [search, router]);
+
+  const {
+    data: postsData,
+    isLoading,
+    isError,
+  } = useDashboardSearchPosts(search);
+
+  const posts = postsData?.data ?? [];
+
+  if (isError) return <p>Failed to load categories</p>;
+
+  console.log(posts, "from my-posts");
+
+  // const posts = [
+  //   {
+  //     id: 1,
+  //     title: "First Post",
+  //     category: "Tech",
+  //     author: "John Doe",
+  //     status: "Approved",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Second Post",
+  //     category: "Lifestyle",
+  //     author: "Jane Smith",
+  //     status: "Pending",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Third Post",
+  //     category: "Education",
+  //     author: "Admin",
+  //     status: "Rejected",
+  //   },
+  // ];
 
   return (
     <div className="p-6 space-y-6">
@@ -60,6 +88,7 @@ const PostPageDashboard = () => {
             type="text"
             placeholder="Search Posts..."
             className="w-full md:w-64"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <Button className="bg-red-600 text-white hover:bg-red-700">
             <Link href={"/dashboard/my-posts/add-new-posts"}>Add New Post</Link>
@@ -84,20 +113,20 @@ const PostPageDashboard = () => {
             {posts.map((post, index) => (
               <TableRow key={post.id}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{post.title}</TableCell>
-                <TableCell>{post.category}</TableCell>
-                <TableCell>{post.author}</TableCell>
+                <TableCell>{post?.title}</TableCell>
+                <TableCell>{post?.categoryName}</TableCell>
+                <TableCell>{post?.authorName}</TableCell>
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded text-xs font-semibold ${
-                      post.status === "Approved"
+                      post?.status === "Approved"
                         ? "bg-green-100 text-green-700"
-                        : post.status === "Pending"
+                        : post?.status === "Pending"
                           ? "bg-yellow-100 text-yellow-700"
                           : "bg-red-100 text-red-700"
                     }`}
                   >
-                    {post.status}
+                    {post?.status}
                   </span>
                 </TableCell>
                 <TableCell className="flex gap-2 justify-center">

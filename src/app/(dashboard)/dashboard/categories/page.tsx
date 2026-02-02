@@ -47,11 +47,11 @@ const CategoryTablePage = () => {
     isLoading,
     isError,
   } = useSearchCategories(search);
+
   const { mutate: deleteCategory } = useDeleteCategory();
 
   const categories = categoriesResp?.data ?? [];
 
-  // if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Failed to load categories</p>;
 
   return (
