@@ -3,70 +3,70 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getUserFromCookie } from "@/lib/auth.server";
 import DashboardLogout from "@/components/common/DashboardLogout/DashboardLogout";
+import SidebarNav from "@/components/common/SidebarNav/SidebarNav";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await getUserFromCookie();
 
-  // console.log(user, "user");
-
-  const SidebarContent = () => (
-    <div className="flex flex-col h-full p-6">
-      <div className="flex flex-col space-y-4">
-        <h2 className="text-2xl font-bold text-red-600">
-          {user?.role == "user" ? <span>Member</span> : <></>}
-          {user?.role == "editor" ? <span>Editor</span> : <></>}
-          {user?.role == "admin" ? <span>Admin</span> : <></>}
-        </h2>
-        <div className="mt-auto flex border-t"></div>
-        <nav className="flex flex-col space-y-3 text-gray-700">
-          <Link href={"/dashboard/statistics"} className="hover:text-red-600">
-            Statistics
-          </Link>
-          <Link href={"/dashboard/my-posts"} className="hover:text-red-600">
-            My Posts
-          </Link>
-          {user?.role === "editor" || user?.role === "admin" ? (
-            <Link
-              href={"/dashboard/manage-posts"}
-              className="hover:text-red-600"
-            >
-              Manage Posts
-            </Link>
-          ) : (
-            <></>
-          )}
-          {user?.role === "admin" ? (
-            <Link href={"/dashboard/categories"} className="hover:text-red-600">
-              Manage Categories
-            </Link>
-          ) : (
-            <></>
-          )}
-          {user?.role === "admin" ? (
-            <Link href={"/dashboard/users"} className="hover:text-red-600">
-              Users
-            </Link>
-          ) : (
-            <></>
-          )}
-        </nav>
-        <div className="mt-auto flex border-t pt-4">
-          <nav className="flex flex-col space-y-3 text-gray-700">
-            <Link href={"/dashboard/profile"} className="hover:text-red-600">
-              Profile
-            </Link>
-            <DashboardLogout />
-          </nav>
-        </div>
-      </div>
-    </div>
-  );
+  // const SidebarContent = () => (
+  //   <div className="flex flex-col h-full p-6">
+  //     <div className="flex flex-col space-y-4">
+  //       <h2 className="text-2xl font-bold text-red-600">
+  //         {user?.role == "user" ? <span>Member</span> : <></>}
+  //         {user?.role == "editor" ? <span>Editor</span> : <></>}
+  //         {user?.role == "admin" ? <span>Admin</span> : <></>}
+  //       </h2>
+  //       <div className="mt-auto flex border-t"></div>
+  //       <nav className="flex flex-col space-y-3 text-gray-700">
+  //         <Link href={"/dashboard/statistics"} className="hover:text-red-600">
+  //           Statistics
+  //         </Link>
+  //         <Link href={"/dashboard/my-posts"} className="hover:text-red-600">
+  //           My Posts
+  //         </Link>
+  //         {user?.role === "editor" || user?.role === "admin" ? (
+  //           <Link
+  //             href={"/dashboard/manage-posts"}
+  //             className="hover:text-red-600"
+  //           >
+  //             Manage Posts
+  //           </Link>
+  //         ) : (
+  //           <></>
+  //         )}
+  //         {user?.role === "admin" ? (
+  //           <Link href={"/dashboard/categories"} className="hover:text-red-600">
+  //             Manage Categories
+  //           </Link>
+  //         ) : (
+  //           <></>
+  //         )}
+  //         {user?.role === "admin" ? (
+  //           <Link href={"/dashboard/users"} className="hover:text-red-600">
+  //             Users
+  //           </Link>
+  //         ) : (
+  //           <></>
+  //         )}
+  //       </nav>
+  //       <div className="mt-auto flex border-t pt-4">
+  //         <nav className="flex flex-col space-y-3 text-gray-700">
+  //           <Link href={"/dashboard/profile"} className="hover:text-red-600">
+  //             Profile
+  //           </Link>
+  //           <DashboardLogout />
+  //         </nav>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <div className="flex min-h-screen bg-gray-100 w-full">
       {/* Desktop Sidebar */}
       <aside className="hidden md:block w-64 bg-white shadow-lg">
-        <SidebarContent />
+        {/* <SidebarContent /> */}
+        <SidebarNav user={user} />
       </aside>
 
       {/* Mobile Sidebar */}
@@ -80,7 +80,8 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
-          <SidebarContent />
+          {/* <SidebarContent /> */}
+          <SidebarNav user={user} />
         </SheetContent>
       </Sheet>
 
