@@ -43,7 +43,8 @@ const SidebarNav = ({ user }: { user: any }) => {
         <div className="mt-auto flex border-t"></div>
 
         <nav className="flex flex-col space-y-3">
-          <NavLink href="/dashboard/statistics">Statistics</NavLink>
+          <NavLink href="/dashboard/statistics">Admin Statistics</NavLink>
+          <NavLink href="/dashboard/my-statistics">My Statistics</NavLink>
           <NavLink href="/dashboard/my-posts">My Posts</NavLink>
 
           {(user?.role === "editor" || user?.role === "admin") && (
