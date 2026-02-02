@@ -21,21 +21,31 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import { useCategories } from "@/features/public/categories/useCategories";
+import { useDeleteCategory } from "@/features/dashboard/categories/useDeleteCategories";
+import { useUpdateCategory } from "@/features/dashboard/categories/useUpdateCategories";
+import Link from "next/link";
 
 const CategoryTable = () => {
-  const categories = [
-    { id: 1, name: "Tech" },
-    { id: 2, name: "Lifestyle" },
-    { id: 3, name: "Education" },
-    { id: 4, name: "Business" },
-  ];
+  const { data: categories, isLoading } = useCategories();
+  const { mutate: deleteCategory } = useDeleteCategory();
+  const { mutate: updateCategory } = useUpdateCategory();
+  console.log(categories, "categories useCate");
+  // const categories = [
+  //   { id: 1, name: "Tech" },
+  //   { id: 2, name: "Lifestyle" },
+  //   { id: 3, name: "Education" },
+  //   { id: 4, name: "Business" },
+  // ];
+
+  if (isLoading) return "Loading...";
 
   return (
     <div className="p-6 space-y-6">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h2 className="text-2xl font-bold text-gray-800">
-          Categories: {categories.length}
+          Categories: {categories?.data?.length}
         </h2>
         <div className="flex gap-2">
           <Input
@@ -60,13 +70,13 @@ const CategoryTable = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories.map((cat, index) => (
-              <TableRow key={cat.id}>
+            {categories?.data?.map((cat, index) => (
+              <TableRow key={cat._id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{cat.name}</TableCell>
                 <TableCell className="flex gap-2 justify-center">
                   <Button variant="outline" size="sm">
-                    Edit
+                    <Link href={`/dashboard/categories/${cat?._id}`}>Edit</Link>
                   </Button>
 
                   {/* Delete with Confirmation Modal */}
@@ -92,9 +102,7 @@ const CategoryTable = () => {
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                           className="bg-red-600 text-white hover:bg-red-700"
-                          onClick={() => {
-                            console.log("Deleted category:", cat.id);
-                          }}
+                          onClick={() => deleteCategory(cat._id)}
                         >
                           Confirm Delete
                         </AlertDialogAction>

@@ -14,7 +14,6 @@ const NavLink = ({
   const pathname = usePathname();
   console.log(pathname, "pathname");
 
-  // Special case: if current path is "/dashboard", mark Statistics as active
   const isActive =
     pathname === href ||
     (pathname === "/dashboard" && href === "/dashboard/statistics");
