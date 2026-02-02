@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,19 +11,51 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useSearchCategories } from "@/features/dashboard/categories/useSearchCategories";
+import { useUser } from "@/features/auth/useUser";
+import { useParams } from "next/navigation";
+import { useDashPost } from "@/features/dashboard/posts/useDashPost";
+import { useUpdatePost } from "@/features/dashboard/posts/useUpdatePost";
 
-const AddNewPost = () => {
+const PostEditPage = () => {
+  const { postId } = useParams();
+  const { data: postData, isLoading: postLoading } = useDashPost(
+    postId as string,
+  );
   const [title, setTitle] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [category, setCategory] = useState("");
-  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
+  const [authId, setAuthId] = useState("");
+  const [pid, setPid] = useState(postId);
 
-  const categories = ["Tech", "Lifestyle", "Education", "Business", "Health"];
+  useEffect(() => {
+    setTitle(postData?.data?.title || "");
+    setPhotoUrl(postData?.data?.photoUrl || "");
+    setCategory(postData?.data?.categoryId || "");
+    setDescription(postData?.data?.description || "");
+    setAuthId(postData?.data?.authId || "");
+  }, [postData]);
+
+  const user = useUser();
+  const { mutate: updatePost, isPending, isError, error } = useUpdatePost();
+  const { data, isLoading: categoriesLoading } = useSearchCategories();
+
+  if (postLoading || categoriesLoading) return "Loading...";
+
+  const categories = data?.data || [];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ title, category, content });
-    // logic
+    const payload = {
+      title,
+      description,
+      photoUrl,
+      categoryId: category,
+      authorId: user?.id,
+    };
+    console.log(payload);
+    updatePost({ id: postId, payload });
   };
 
   return (
@@ -48,14 +80,14 @@ const AddNewPost = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Category
           </label>
-          <Select onValueChange={(val) => setCategory(val)}>
+          <Select value={category} onValueChange={(val) => setCategory(val)}>
             <SelectTrigger>
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
             <SelectContent>
-              {categories.map((cat) => (
-                <SelectItem key={cat} value={cat}>
-                  {cat}
+              {categories.map((cat: any) => (
+                <SelectItem key={cat._id} value={cat._id}>
+                  {cat.name}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -70,20 +102,20 @@ const AddNewPost = () => {
           <Input
             type="text"
             placeholder="Enter photo url"
-            value={title}
+            value={photoUrl}
             onChange={(e) => setPhotoUrl(e.target.value)}
           />
         </div>
 
-        {/* conetnt */}
+        {/* content */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Content
           </label>
           <Textarea
-            placeholder="Write your post content..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            placeholder="Write your post description..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="min-h-[150px]"
           />
         </div>
@@ -92,12 +124,15 @@ const AddNewPost = () => {
         <Button
           type="submit"
           className="bg-red-600 text-white hover:bg-red-700"
+          disabled={isPending}
         >
-          Update Post
+          {isPending ? "Updating..." : "Update Post"}
         </Button>
+
+        {isError && <p className="text-red-500">{error?.message}</p>}
       </form>
     </div>
   );
 };
 
-export default AddNewPost;
+export default PostEditPage;

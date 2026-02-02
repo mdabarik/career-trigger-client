@@ -24,8 +24,6 @@ const EditCategoryPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updated category:", { id: catId, name });
-    // এখানে update hook কল করবে
 
     const payload = {
       categoryName: name,

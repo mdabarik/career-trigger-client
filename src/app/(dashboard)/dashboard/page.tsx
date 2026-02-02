@@ -5,7 +5,6 @@ import StatisticsPage from "./statistics/page";
 const Dashbaordpage = async () => {
   const session = await getServerSession(authOptions);
 
-  // console.log("dashboard/page.tsx", session);
 
   return <StatisticsPage />;
 };

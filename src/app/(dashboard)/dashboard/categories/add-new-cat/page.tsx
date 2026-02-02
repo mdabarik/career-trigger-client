@@ -20,8 +20,6 @@ const AddNewCategory = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("Updated category:", { id: category?.id, name });
-    // logic
     const payload = { categoryName: name };
     createCategory(payload as any);
   };

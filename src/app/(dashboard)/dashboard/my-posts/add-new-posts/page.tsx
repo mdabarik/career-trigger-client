@@ -11,19 +11,33 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useSearchCategories } from "@/features/dashboard/categories/useSearchCategories";
+import { useUser } from "@/features/auth/useUser";
+import { useCreatePost } from "@/features/dashboard/posts/useCreatePost";
 
 const AddNewPost = () => {
   const [title, setTitle] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [category, setCategory] = useState("");
-  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
 
-  const categories = ["Tech", "Lifestyle", "Education", "Business", "Health"];
+  const user = useUser();
+  const { mutate: createPost, isPending, isError, error } = useCreatePost();
+  const { data, isLoading } = useSearchCategories();
+  if (isLoading) return "Loading...";
+  const categories = data?.data;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ title, category, content });
-    // logic
+    const payload = {
+      title: title,
+      description: description,
+      photoUrl: photoUrl,
+      categoryId: category,
+      authorId: user?.id,
+    };
+    // console.log(payload);
+    createPost(payload);
   };
 
   return (
@@ -54,8 +68,8 @@ const AddNewPost = () => {
             </SelectTrigger>
             <SelectContent>
               {categories.map((cat) => (
-                <SelectItem key={cat} value={cat}>
-                  {cat}
+                <SelectItem key={cat?._id} value={cat?._id}>
+                  {cat?.name}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -70,7 +84,7 @@ const AddNewPost = () => {
           <Input
             type="text"
             placeholder="Enter photo url"
-            value={title}
+            value={photoUrl}
             onChange={(e) => setPhotoUrl(e.target.value)}
           />
         </div>
@@ -81,9 +95,9 @@ const AddNewPost = () => {
             Content
           </label>
           <Textarea
-            placeholder="Write your post content..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            placeholder="Write your post description..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="min-h-[150px]"
           />
         </div>

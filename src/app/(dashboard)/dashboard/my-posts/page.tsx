@@ -25,12 +25,14 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDashboardSearchPosts } from "@/features/dashboard/posts/postsHooks";
+import { useDashPostDelete } from "@/features/dashboard/posts/useDashPostDelete";
 
 const PostPageDashboard = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initial = searchParams?.get("search") ?? "";
   const [search, setSearch] = useState(initial);
+  const { mutate: deletePost } = useDashPostDelete();
 
   useEffect(() => {
     const url =
@@ -49,32 +51,6 @@ const PostPageDashboard = () => {
   const posts = postsData?.data ?? [];
 
   if (isError) return <p>Failed to load categories</p>;
-
-  console.log(posts, "from my-posts");
-
-  // const posts = [
-  //   {
-  //     id: 1,
-  //     title: "First Post",
-  //     category: "Tech",
-  //     author: "John Doe",
-  //     status: "Approved",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Second Post",
-  //     category: "Lifestyle",
-  //     author: "Jane Smith",
-  //     status: "Pending",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Third Post",
-  //     category: "Education",
-  //     author: "Admin",
-  //     status: "Rejected",
-  //   },
-  // ];
 
   return (
     <div className="p-6 space-y-6">
@@ -111,7 +87,7 @@ const PostPageDashboard = () => {
           </TableHeader>
           <TableBody>
             {posts.map((post, index) => (
-              <TableRow key={post.id}>
+              <TableRow key={post?._id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{post?.title}</TableCell>
                 <TableCell>{post?.categoryName}</TableCell>
@@ -131,10 +107,7 @@ const PostPageDashboard = () => {
                 </TableCell>
                 <TableCell className="flex gap-2 justify-center">
                   <Button variant="outline" size="sm">
-                    View
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    Edit
+                    <Link href={`/dashboard/my-posts/${post?._id}`}>Edit</Link>
                   </Button>
 
                   {/* Delete with Confirmation Modal */}
@@ -161,7 +134,7 @@ const PostPageDashboard = () => {
                         <AlertDialogAction
                           className="bg-red-600 text-white hover:bg-red-700"
                           onClick={() => {
-                            console.log("Deleted post:", post.id);
+                            deletePost(post?._id);
                           }}
                         >
                           Confirm Delete

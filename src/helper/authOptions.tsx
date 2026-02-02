@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         console.log("credentials,", credentials);
         const res = await fetch(
-          `http://localhost:3001/api/users/user?email=${credentials?.email}`
+          `http://localhost:3001/api/users/user?email=${credentials?.email}`,
         );
 
         const resJson = await res.json();
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
 
         const isValid = await bcrypt.compare(
           credentials!.password,
-          user.password
+          user.password,
         );
 
         // console.log("isvalid", isValid);
@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       const res = await fetch(
-        `http://localhost:3001/api/users/user?email=${user?.email}`
+        `http://localhost:3001/api/users/user?email=${user?.email}`,
       );
 
       const jsonRES = await res.json();

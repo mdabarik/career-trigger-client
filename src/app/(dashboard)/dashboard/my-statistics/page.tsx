@@ -19,7 +19,7 @@ const MyStatistics = () => {
   const user = useUser();
   const { data: stats, isLoading, isError } = useStats(user?.id);
 
-  console.log(user?.id, "user user user");
+  // console.log(user?.id, "user user user");
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error loading stats</p>;
