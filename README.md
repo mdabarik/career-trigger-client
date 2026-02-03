@@ -61,63 +61,63 @@ career-trigger-client/
 │   └─ favicon.ico
 │
 ├─ src/
-│   ├─ app/                        # nextjs app router
-│   │   ├─ layout.tsx              # global public layout (Navbar + Footer)
-│   │   ├─ page.tsx                # Home page
+│   ├─ app/               
+│   │   ├─ layout.tsx          
+│   │   ├─ page.tsx          
 │   │
-│   │   ├─ login/page.tsx          # Login page
-│   │   ├─ register/page.tsx       # Register page
+│   │   ├─ login/page.tsx       
+│   │   ├─ register/page.tsx      
 │   │
-│   │   ├─ posts/                  # Public posts pages
+│   │   ├─ posts/                 
 │   │   │   ├─ page.tsx
 │   │   │   └─ [slug]/page.tsx
 │   │
-│   │   ├─ quizes/page.tsx         # Private route (login required, non-dashboard)
+│   │   ├─ quizes/page.tsx       
 │   │
-│   │   └─ dashboard/              # Dashboard pages
-│   │       ├─ layout.tsx          # Dashboard layout (Sidebar + Navbar)
-│   │       ├─ page.tsx            # Dashboard landing/statistics
+│   │   └─ dashboard/           
+│   │       ├─ layout.tsx          
+│   │       ├─ page.tsx          
 │   │       ├─ posts/
-│   │       │   ├─ page.tsx        # List all posts
-│   │       │   ├─ add/page.tsx    # Add post
-│   │       │   └─ [id]/page.tsx   # Edit post
+│   │       │   ├─ page.tsx     
+│   │       │   ├─ add/page.tsx 
+│   │       │   └─ [id]/page.tsx  
 │   │       │
 │   │       ├─ users/page.tsx
 │   │       ├─ categories/page.tsx
 │   │       └─ profile/page.tsx
 │
 ├─ src/
-│   ├─ components/                  # reuseable components
-│   │   ├─ common/                  # global reuseable components
+│   ├─ components/             
+│   │   ├─ common/                 
 │   │   │   ├─ Button.tsx
 │   │   │   ├─ Input.tsx
 │   │   │   ├─ Modal.tsx
 │   │   │   ├─ Navbar.tsx
 │   │   │   └─ Footer.tsx
 │   │   │
-│   │   ├─ posts/                   # public posts components
+│   │   ├─ posts/               
 │   │   │   ├─ PostCard.tsx
 │   │   │   ├─ PostList.tsx
 │   │   │   └─ PostDetails.tsx
 │   │   │
-│   │   ├─ categories/              # public categories components
+│   │   ├─ categories/           
 │   │   │   ├─ CategoryCard.tsx
 │   │   │   └─ CategoryList.tsx
 │   │   │
-│   │   ├─ dashboard/               # dashboard components
+│   │   ├─ dashboard/        
 │   │   │   ├─ Sidebar.tsx
 │   │   │   ├─ StatsCard.tsx
 │   │   │   ├─ PostTable.tsx
 │   │   │   └─ UserTable.tsx
 │   │   │
-│   │   └─ auth/                    # auth components
+│   │   └─ auth/            
 │   │       ├─ LoginForm.tsx
 │   │       └─ RegisterForm.tsx
 │
 ├─ src/
-│   ├─ features/                     # All feature logic (API + hooks + types)
+│   ├─ features/            
 │   │
-│   │   ├─ public/                   # Public read-only features
+│   │   ├─ public/             
 │   │   │   ├─ posts/
 │   │   │   │   ├─ postsAPI.ts
 │   │   │   │   ├─ usePosts.ts
@@ -128,17 +128,17 @@ career-trigger-client/
 │   │   │       ├─ useCategories.ts
 │   │   │       └─ types.ts
 │   │
-│   │   ├─ private/                  # Private (login required, non-dashboard)
+│   │   ├─ private/           
 │   │   │   └─ quizes/
 │   │   │       ├─ quizesAPI.ts
 │   │   │       ├─ useQuizes.ts
 │   │   │       └─ types.ts
 │   │
-│   │   ├─ dashboard/               # dahboard features
+│   │   ├─ dashboard/    
 │   │   │   ├─ posts/
-│   │   │   │   ├─ api.ts           # crud
-│   │   │   │   ├─ usePosts.ts      # hook
-│   │   │   │   └─ types.ts         # types
+│   │   │   │   ├─ api.ts        
+│   │   │   │   ├─ usePosts.ts  
+│   │   │   │   └─ types.ts  
 │   │   │   │
 │   │   │   ├─ categories/
 │   │   │   │   ├─ api.ts
@@ -150,17 +150,17 @@ career-trigger-client/
 │   │   │       ├─ useUsers.ts
 │   │   │       └─ types.ts
 │   │
-│   │   └─ auth/                    # Auth feature logic
-│   │       ├─ authAPI.ts           # Login/Register API
-│   │       ├─ useAuth.ts           # Hook for auth logic
-│   │       └─ types.ts             # User/Login typ
+│   │   └─ auth/             
+│   │       ├─ authAPI.ts          
+│   │       ├─ useAuth.ts       
+│   │       └─ types.ts         
 │
 ├─ src/
-│   ├─ types/                       # global types
+│   ├─ types/                 
 │   │   ├─ layout.ts
 │
 ├─ src/
-│   ├─ utils/                       # utility function
+│   ├─ utils/                 
 │   │   ├─ buildQuery.ts
 │   │   └─ errorMessage.ts
 │
