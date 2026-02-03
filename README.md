@@ -1,9 +1,6 @@
-
 # Career Trigger Client
 
-**Career Trigger Client** is a modern, high-performance web application designed for a professional career community. This frontend is built with a focus on seamless user experience, responsive design, and scalable architecture using **Next.js** and **Tailwind CSS**.
-
----
+## **Career Trigger Client** is a modern, high-performance web application designed for a professional career community. This frontend is built with a focus on seamless user experience, responsive design, and scalable architecture using **Next.js** and **Tailwind CSS**.
 
 ## Architectural Excellence & Design Principles
 
