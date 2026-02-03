@@ -19,10 +19,6 @@ This client-side application is not just about UI; it's about clean, maintainabl
 
 ---
 
-## 📁 Project Structure
-
-The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
-
 ## 🛠️ Tech Stack
 
 - Framework: React.js / Next.js
@@ -51,8 +47,12 @@ The project follows a **Feature-Based Folder Structure**, making it highly intui
 
 ```text
 
-<!-- ----------- architectures (KISS, YAGNI, DRY, SOLID) ------------ -->
-careertrigger-nextjs/
+---
+## 📁 Project Structure
+
+The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
+---
+career-trigger-client/
 │
 ├─ public/
 │   ├─ images/
