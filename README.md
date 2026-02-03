@@ -49,7 +49,7 @@ This client-side application is not just about UI; it's about clean, maintainabl
 
 ## 📁 Project Structure
 
-## The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
+The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
 
 ```text
 
