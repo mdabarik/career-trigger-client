@@ -1,123 +1,211 @@
-# Career Trigger Client
+# career-trigger-client
 
-# Modern web application for a professional career community
+a# Career Trigger Client
 
-# Built with Next.js and Tailwind CSS
+**Career Trigger Client** is a modern, high-performance web application designed for a professional career community. This frontend is built with a focus on seamless user experience, responsive design, and scalable architecture using **Next.js** and **Tailwind CSS**.
 
-# =========================================================
+---
 
-# 1. Architecture & Principles
+## Architectural Excellence & Design Principles
 
-# =========================================================
+This client-side application is not just about UI; it's about clean, maintainable, and efficient code. The following principles are strictly followed:
 
-# - Modular Components (Single Responsibility Principle)
+- **Modular Component Architecture:** Components are designed to be small, reusable, and independent, following the **Single Responsibility Principle (SRP)**.
+- **KISS (Keep It Simple, Stupid):** Logic is kept clean and readable, avoiding unnecessary complexity in state management and rendering.
+- **YAGNI (You Ain't Gonna Need It):** Features are implemented based on requirements, ensuring the bundle size remains optimized without "dead code."
+- **DRY (Don't Repeat Yourself):** Reusable UI components (Buttons, Inputs, Cards) and Custom Hooks are utilized to minimize code duplication.
+- **Composition over Inheritance:** Leveraging React's composition model to build complex UIs from smaller, simpler components.
+- **Separation of Concerns:** UI logic is separated from business logic by utilizing **Custom Hooks** for API calls and state synchronization.
 
-# - KISS (Keep It Simple, Stupid)
+---
 
-# - YAGNI (You Ain't Gonna Need It)
+## Tech Stack
 
-# - DRY (Don't Repeat Yourself)
+- Framework: React.js / Next.js
+- Styling: Tailwind CSS (Utility-first CSS)
+- State Management: Redux Toolkit / React Context API
+- Data Fetching: RTK Query / Axios + Axios Interceptors
+- Form Management: React Hook Form
+- Validation: Zod
+- Icons & UI: React Icons, ShadCn
 
-# - Composition over Inheritance
+## Key Features
 
-# - Separation of Concerns (UI vs Business Logic)
+- Dynamic Role-Based Dashboard: Personalized interfaces for Admins, Editors, and Users.
+- Interactive Feed: A seamless browsing experience for career posts and categories.
+- Secure Authentication: Integration with JWT-based login, registration, and persistent sessions.
+- Content Creation Suite: A powerful editor for creating posts with real-time validation.
+- Responsive Design: Fully optimized for Mobile, Tablet, and Desktop views.
+- Optimistic UI Updates: Providing an instant feedback loop for likes, comments, and reactions.
 
-# =========================================================
+## Frontend Security & Optimization
 
-# 2. Tech Stack
+- Protected Routes: Higher-Order Components (HOC) and Middlewares to prevent unauthorized access.
+- JWT Persistence: Secure handling of access tokens in memory or HttpOnly cookies.
+- Lazy Loading: Code-splitting and lazy loading of components to improve initial page load speed.
+- Input Sanitization: Preventing XSS attacks through controlled inputs and validation.
 
-# =========================================================
+---
 
-# Framework: React.js / Next.js
+## Project Structure
 
-# Styling: Tailwind CSS
+The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
 
-# State Management: Redux Toolkit / Context API
-
-# Data Fetching: RTK Query / Axios
-
-# Form Handling: React Hook Form + Zod
-
-# UI & Icons: React Icons, ShadCn
-
-# =========================================================
-
-# 3. Features
-
-# =========================================================
-
-# - Role-based dashboards (Admin, Editor, User)
-
-# - Interactive feed for career posts
-
-# - JWT authentication with persistent sessions
-
-# - Post creation editor with validation
-
-# - Responsive design (Mobile, Tablet, Desktop)
-
-# - Optimistic UI updates for likes/comments
-
-# =========================================================
-
-# 4. Security & Optimization
-
-# =========================================================
-
-# - Protected routes with HOCs & middleware
-
-# - Secure JWT handling (memory / HttpOnly cookies)
-
-# - Lazy loading & code splitting
-
-# - Input sanitization against XSS
-
-# =========================================================
-
-# 5. Project Structure
-
-# =========================================================
+```text
 
 career-trigger-client/
 │
 ├─ public/
-│ ├─ images/ icons/ favicon.ico
+│   ├─ images/
+│   ├─ icons/
+│   └─ favicon.ico
 │
 ├─ src/
-│ ├─ app/ (pages & layouts)
-│ ├─ components/ (UI components)
-│ ├─ features/ (API + hooks)
-│ ├─ types/
-│ ├─ utils/
-│ ├─ styles/
+│   ├─ app/
+│   │   ├─ layout.tsx
+│   │   ├─ page.tsx
+│   │
+│   │   ├─ login/page.tsx
+│   │   ├─ register/page.tsx
+│   │
+│   │   ├─ posts/
+│   │   │   ├─ page.tsx
+│   │   │   └─ [slug]/page.tsx
+│   │
+│   │   ├─ quizes/page.tsx
+│   │
+│   │   └─ dashboard/
+│   │       ├─ layout.tsx
+│   │       ├─ page.tsx
+│   │       ├─ posts/
+│   │       │   ├─ page.tsx
+│   │       │   ├─ add/page.tsx
+│   │       │   └─ [id]/page.tsx
+│   │       │
+│   │       ├─ users/page.tsx
+│   │       ├─ categories/page.tsx
+│   │       └─ profile/page.tsx
+│
+├─ src/
+│   ├─ components/
+│   │   ├─ common/
+│   │   │   ├─ Button.tsx
+│   │   │   ├─ Input.tsx
+│   │   │   ├─ Modal.tsx
+│   │   │   ├─ Navbar.tsx
+│   │   │   └─ Footer.tsx
+│   │   │
+│   │   ├─ posts/
+│   │   │   ├─ PostCard.tsx
+│   │   │   ├─ PostList.tsx
+│   │   │   └─ PostDetails.tsx
+│   │   │
+│   │   ├─ categories/
+│   │   │   ├─ CategoryCard.tsx
+│   │   │   └─ CategoryList.tsx
+│   │   │
+│   │   ├─ dashboard/
+│   │   │   ├─ Sidebar.tsx
+│   │   │   ├─ StatsCard.tsx
+│   │   │   ├─ PostTable.tsx
+│   │   │   └─ UserTable.tsx
+│   │   │
+│   │   └─ auth/
+│   │       ├─ LoginForm.tsx
+│   │       └─ RegisterForm.tsx
+│
+├─ src/
+│   ├─ features/
+│   │
+│   │   ├─ public/
+│   │   │   ├─ posts/
+│   │   │   │   ├─ postsAPI.ts
+│   │   │   │   ├─ usePosts.ts
+│   │   │   │   └─ types.ts
+│   │   │   │
+│   │   │   └─ categories/
+│   │   │       ├─ categoriesAPI.ts
+│   │   │       ├─ useCategories.ts
+│   │   │       └─ types.ts
+│   │
+│   │   ├─ private/
+│   │   │   └─ quizes/
+│   │   │       ├─ quizesAPI.ts
+│   │   │       ├─ useQuizes.ts
+│   │   │       └─ types.ts
+│   │
+│   │   ├─ dashboard/
+│   │   │   ├─ posts/
+│   │   │   │   ├─ api.ts
+│   │   │   │   ├─ usePosts.ts
+│   │   │   │   └─ types.ts
+│   │   │   │
+│   │   │   ├─ categories/
+│   │   │   │   ├─ api.ts
+│   │   │   │   ├─ useCategories.ts
+│   │   │   │   └─ types.ts
+│   │   │   │
+│   │   │   └─ users/
+│   │   │       ├─ api.ts
+│   │   │       ├─ useUsers.ts
+│   │   │       └─ types.ts
+│   │
+│   │   └─ auth/
+│   │       ├─ authAPI.ts
+│   │       ├─ useAuth.ts
+│   │       └─ types.ts
+│
+├─ src/
+│   ├─ types/
+│   │   ├─ layout.ts
+│
+├─ src/
+│   ├─ utils/
+│   │   ├─ buildQuery.ts
+│   │   └─ errorMessage.ts
+│
+├─ src/
+│   ├─ styles/
+│   │   └─ globals.css
 │
 ├─ .env.local
 ├─ next.config.js
 ├─ package.json
 └─ tsconfig.json
 
-# =========================================================
+```
 
-# 6. Setup Instructions
+### Installation & Setup
 
-# =========================================================
+## 1.Clone the Repository:
 
-# Step 1: Clone repository
-
-git clone https://github.com/mdabarik/career-trigger-client.git
+```bash
+git clone [https://github.com/mdabarik/career-trigger-client.git](https://github.com/mdabarik/career-trigger-client.git)
 cd career-trigger-client
+```
 
-# Step 2: Install dependencies
+## 2. Install Dependencies:
 
+```bash
 npm install
+```
 
-# Step 3: Add environment variables (.env.local)
+## 3. Environment Variables: .env (root - same as backend)
 
-JWT_SECRET=
-JWT_REFRESH_SECRET=
+```bash
+JWT_SECRET=abcdtefd
+JWT_REFRESH_SECRET=abdfadf
+```
 
-# Step 4: Run project
+## 4. Run the Project:
 
-npm run dev # Development mode
-npm run build # Production build
-npm run start # Start production
+```bash
+# Development mode
+npm run dev
+
+# Production build
+npm run build
+npm run start
+```
+
+## Thanks
