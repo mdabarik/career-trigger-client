@@ -45,13 +45,14 @@ This client-side application is not just about UI; it's about clean, maintainabl
 - Lazy Loading: Code-splitting and lazy loading of components to improve initial page load speed.
 - Input Sanitization: Preventing XSS attacks through controlled inputs and validation.
 
-```text
-
 ---
+
 ## 📁 Project Structure
 
-The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
----
+## The project follows a **Feature-Based Folder Structure**, making it highly intuitive for developers to navigate:
+
+```text
+
 career-trigger-client/
 │
 ├─ public/
