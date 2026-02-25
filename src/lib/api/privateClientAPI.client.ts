@@ -1,51 +1,44 @@
-import axios from "axios";
 import { tokenService } from "@/features/auth/utils";
+import axios from "axios";
 
-const privateClientAPI = axios.create({ baseURL: "http://localhost:3001/" });
+const clientPrivateAPI = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+});
 
-privateClientAPI.interceptors.request.use((config) => {
-  let token = tokenService.getAccessToken();
+clientPrivateAPI.interceptors.request.use((config) => {
+  const token = tokenService.getAccessToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-privateClientAPI.interceptors.response.use(
+clientPrivateAPI.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      const refreshToken = tokenService.getRefreshToken();
-      if (refreshToken) {
-        try {
-          const { data } = await axios.post(
-            "http://localhost:3001/api/auth/refresh",
-            { refreshToken },
-          );
-
-          tokenService.setAccessToken(data.accessToken);
-          originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-          return privateClientAPI(originalRequest);
-        } catch (err) {
-          tokenService.clearAllTokens();
-          if (typeof window !== "undefined") {
-            window.location.href = "/login";
-          }
-        }
-      } else {
-        tokenService.clearAllTokens();
-        if (typeof window !== "undefined") {
-          window.location.href = "/login";
-        }
-      }
+    const { config, response } = error;
+    if (response.status !== 401 || config._retry) {
+      return Promise.reject(error);
     }
-
-    return Promise.reject(error);
+    config._retry = true;
+    try {
+      const refreshToken = tokenService.getRefreshToken();
+      if (!refreshToken) {
+        throw new Error("Invalid refresh token");
+      }
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh`,
+        { refreshToken },
+      );
+      tokenService.setAccessToken(data.accessToken);
+      config.headers.Authorization = `Berear ${data?.accessToken}`;
+      clientPrivateAPI(config);
+    } catch (err) {
+      tokenService.clearAllTokens();
+      window.location.href = "/login";
+      console.log(err);
+    }
   },
 );
 
-export default privateClientAPI;
+export default clientPrivateAPI;
